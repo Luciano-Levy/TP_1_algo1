@@ -1,0 +1,73 @@
+\documentclass[a4paper]{article}
+
+\setlength{\parskip}{2mm}
+\newcommand{\tab}{~ \qquad}
+\input{Algo1Macros}
+\usepackage{caratula} % Version modificada para usar las macros de algo1 de ~> https://github.com/bcardiff/dc-tex
+
+\begin{document}
+
+\titulo{TP de Especificación}
+\subtitulo{AGREGAR TITULO TPE}
+\fecha{30 de Marzo de 2022}
+\materia{Algoritmos y Estructuras de Datos I}
+\grupo{Grupo 2}
+
+\newcommand{\dato}{\textit{Dato}}
+\newcommand{\individuo}{\textit{Individuo}}
+
+% Pongan cuantos integrantes quieran
+\integrante{De Galvagni, Constanza}{002/12}{mwazowski@dc.uba.ar}
+\integrante{Marin, Candela}{1405/21}{canmarin17@gmail.com}
+\integrante{Pensotti, Santiago}{003/17}{ecapunta@dc.uba.ar}
+\integrante{Sánchez, Warren}{004/15}{tienelasrespuestas@les.luthier.com}
+\maketitle
+
+
+\section{Definición de Tipos}
+\begin{description}
+	\item type Tiempo = \float \hspace{1cm}
+	\item type Dist = \float
+	\item type GPS = \float X \float
+	\item type Recorrido = $\TLista{GPS}$
+	\item type Viaje = $\TLista{Tiempo X GPS}$
+	\item type Nombre = \float X \float
+	\item type Viaje = $\TLista{GPS X GPS X Nombre}$
+\end{description}
+
+\section{Constantes}
+	\aux{dist}{{p1}{GPS},{P2}{GPS}} 
+
+\section{Problemas}
+\subsection{Ejercicio 1}
+
+\begin{proc}{viajeValido}{\In v: Viaje, \Out res: $\bool$}{}
+    \pre{\True}
+    \post{result = \True \leftrightarrow GPS(v) \in rangoGPS \y tiempo(v) \in rangoTiempo}
+    
+    \pred{rangoGPS}{r1: GPS}{
+    	pred1(r1) \y pred2(r1)
+    }
+    
+    \pred{pred1}{d:\dato} {...}
+    \pred{pred2}{d:\dato} {...}
+\end{proc}
+
+
+
+
+\subsection{Ejercicio 2}
+\begin{proc}{otroProblema}{\In i: \individuo, \Inout result: $\bool$}{}
+	\pre{|i| > MIN()}
+	\post{result = \True \leftrightarrow predicadoPrincipal2(i)}
+	
+	\pred{predicadoPrincipal2}{i:\individuo}{ 
+		pred1(i) \y \neg pred3(i)
+	}
+	
+	\pred{pred3}{i:\individuo} {...}
+\end{proc}
+
+
+
+\end{document}
