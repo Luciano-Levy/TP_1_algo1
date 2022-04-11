@@ -57,16 +57,12 @@
 
 
 
-\subsection*{Ejercicio 2}
-\begin{proc}{otroProblema}{\In i: \individuo, \Inout result: $\bool$}{}
-	\pre{\True} % O viajeValido pasado a pred
+\subsection*{Ejercicio 3}
+\begin{proc}{enTerritorio}{\In v: Viaje, \In r: Dist,\Out res: $\bool$}{}
+	\pre{|i| > MIN()}
 	\post{result = \True \leftrightarrow predicadoPrincipal2(i)}
 	
-	\pred{predicadoPrincipal2}{i:\individuo}{ 
-		pred1(i) \y \neg pred3(i)
-	}
-	
-	
+
 \end{proc}
 
 \subsection*{Ejercicio 3}
