@@ -20,7 +20,7 @@
 \integrante{De Galvagni, Constanza}{590/19}{constanzadegalvagni@gmail.com}
 \integrante{Marin, Candela}{1405/21}{canmarin17@gmail.com}
 \integrante{Pensotti, Santiago}{003/17}{ecapunta@dc.uba.ar}
-\integrante{Sánchez, Warren}{004/15}{tienelasrespuestas@les.luthier.com}
+\integrante{Luciano, Levy}{1473/21}{lucianolevy03@gmail.com}
 \maketitle
 
 
@@ -28,10 +28,10 @@
 \begin{description}
 	\item type Tiempo = \float \hspace{1cm}
 	\item type Dist = \float
-	\item type GPS = \float \times \float
-	\item type Recorrido = $\TLista{GPS}$
+	\item type GPS = \float $\times$ \float
+	\item type Recorrido = \TLista{GPS}
 	\item type Viaje = $\TLista{Tiempo \times GPS}$
-	\item type Nombre = \float \times \float
+	\item type Nombre = \float $\times$ \float
 	\item type Viaje = $\TLista{GPS \times GPS \times Nombre}$
 \end{description}
 
@@ -39,7 +39,8 @@
 	\aux{dist}{{p1}{GPS},{P2}{GPS}} 
 
 \section{Problemas}
-\subsection{Ejercicio 1}
+% el * le saca el numero de seccion
+\subsection*{Ejercicio 1}
 
 \begin{proc}{viajeValido}{\In v: Viaje, \Out res: $\bool$}{}
     \pre{\True}
@@ -56,8 +57,20 @@
 
 
 
-\subsection{Ejercicio 2}
+\subsection*{Ejercicio 2}
 \begin{proc}{otroProblema}{\In i: \individuo, \Inout result: $\bool$}{}
+	\pre{\True} % O viajeValido pasado a pred
+	\post{result = \True \leftrightarrow predicadoPrincipal2(i)}
+	
+	\pred{predicadoPrincipal2}{i:\individuo}{ 
+		pred1(i) \y \neg pred3(i)
+	}
+	
+	
+\end{proc}
+
+\subsection*{Ejercicio 3}
+\begin{proc}{enTerritorio}{\In v: Viaje, \In r: Dist,\Out res: $\bool$}{}
 	\pre{|i| > MIN()}
 	\post{result = \True \leftrightarrow predicadoPrincipal2(i)}
 	
@@ -68,6 +81,20 @@
 	\pred{pred3}{i:\individuo} {...}
 \end{proc}
 
+
+\subsection*{Ejercicio 4}
+\begin{proc}{tiempoTotal}{\In v: Viaje,\Out t: Tiempo}{}
+	\pre{\True}  % O viajeValido pasado a pred
+	\post{t =  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esMayor(v[i]_{0},v)}{v[i]_{0}}{(\IfThenElse {esMenor(v[i]_{0},v)}{v[i]_{0}}{0})}}
+	
+
+	\pred{esMayor}{t: Tiempo, v: Viaje, r: $\bool$}{ (\forall x:\ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego t > v[x]_{0})
+	}
+	
+	\pred{esMenor}{t: Tiempo, v: Viaje, r: $\bool$}{ (\forall x:\ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego t < v[x]_{0})
+		
+	}
+\end{proc}
 
 
 \end{document}
