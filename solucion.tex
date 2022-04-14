@@ -55,14 +55,14 @@
 \end{proc}
 
 
-
-
-\subsection*{Ejercicio 3}
-\begin{proc}{enTerritorio}{\In v: Viaje, \In r: Dist,\Out res: $\bool$}{}
-	\pre{|i| > MIN()}
-	\post{result = \True \leftrightarrow predicadoPrincipal2(i)}
+\subsection*{Ejercicio 2}
+\begin{proc}{recorridoValido}{\In v: \Recorrido, \out result: $\bool$}{}
+	\pre{\True} % O viajeValido pasado a pred
+	\post{result = \True \leftrightarrow (\forall i:\ent) ( 0 \leq i < |v| \yLuego gpsValido(i) }
 	
 
+	
+	
 \end{proc}
 
 \subsection*{Ejercicio 3}
