@@ -106,7 +106,7 @@
 
 \subsection*{Ejercicio 6}
 \begin{proc}{excesoDeVelocidad(v)}{\In v: Viaje, \Out res: $\bool$}{}
-	\pre{esUnViajeValido}
+	\pre{esUnViajeValido(v)}
 	\post{result = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < 444)}
 	
 
