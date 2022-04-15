@@ -104,15 +104,11 @@
 \end{proc}
 
 
-\subsection*{Ejercicio 6}
+\subsection{Ejercicio 6}
 \begin{proc}{excesoDeVelocidad}{\In v: Viaje, \Out res: $\bool$}{}
 	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})}
-	\post{result = (\forall i : \ent) \True \leftrightarrow predicadoPrincipal2(i)}
+	\post{result = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(i) < 444)}
 	
-	\pred{predicadoPrincipal2}{i:\individuo}{ 
-		pred1(i) \y \neg pred3(i)
-	}
-
 
 
 
