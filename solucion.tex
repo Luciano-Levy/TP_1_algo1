@@ -70,9 +70,11 @@
 
 \subsection*{Ejercicio 3}
 \begin{proc}{enTerritorio}{\In v: \Viaje, \In r: \Dist, \Out res: $\bool$}{}{}
-\pre{\esUnViajeValido(v) , r>0}
-\post{res = True \Iff \dentroDeR(v,r)}
+	\pre{\esUnViajeValido(v) \wedge r>0}
+	\post{res = True \leftrightarrow \dentroDeR(v,r)}
 \end{proc}
+
+\pred{dentroDeR}{v:\Viaje}{r:\Dist}{(esUnViajeValido(v) \wedge r>0) \yLuego ((\forall i:\ent) (\forall j:\ent) (0 \leq i < j < |v| \implicaLuego (dist((v[j][1]),(v[i])[1]))<r)}
 
 \pred{dentroDeR}{v:\Viaje}{r:\Dist}{(esUnViajeValido(v) \wedge r>0) \yLuego ((\forall i:\ent) (\forall j:\ent) (0 \leq i < j < |v| \implicaLuego (dist((v[j][1]),(v[i])[1]))<r)}
 
