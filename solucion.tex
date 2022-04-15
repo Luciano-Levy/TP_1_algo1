@@ -80,7 +80,7 @@
 
 \subsection*{Ejercicio 4}
 \begin{proc}{tiempoTotal}{\In v: Viaje,\Out t: Tiempo}{}
-	\pre{\True}   % Pasar viajeValido a pred
+	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})} 
 	\post{t =  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esMayor(v[i]_{0},v)}{v[i]_{0}}{(\IfThenElse {esMenor(v[i]_{0},v)}{v[i]_{0}}{0})}}
 	
 
@@ -95,7 +95,7 @@
 
 \subsection*{Ejercicio 5}
 \begin{proc}{distanciaTotal}{\In v: Viaje,\Out d: Dist}{}
-	\pre{viajeValido(v)}  % Pasar viajeValido a pred
+	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})} 
 	\post{d =  \sum_{i=0}^{\longitud v - 1}distanciaSiguiente(v[i],v) }
 
 	\aux{distanciaSiguiente}{in elem: (Tiempo \times GPS),v: Viaje}{\ent \\}
