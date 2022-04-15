@@ -57,14 +57,6 @@
     }
 \end{proc}
 
-\begin{proc}{excesoDeVelocidad}{\In v: Viaje, \Out res: $\bool$}{}
-	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})}
-	\post{result = (\forall i : \ent) \True \leftrightarrow predicadoPrincipal2(i)}
-	
-	\pred{predicadoPrincipal2}{i:\individuo}{ 
-		pred1(i) \y \neg pred3(i)
-	}
-
 
 \subsection*{Ejercicio 2}
 \begin{proc}{recorridoValido}{\In v: \Recorrido, \out result: $\bool$}{}
@@ -107,11 +99,19 @@
 	\post{d =  \sum_{i=0}^{\longitud v - 1}distanciaSiguiente(v[i],v) }
 
 	\aux{distanciaSiguiente}{in elem: (Tiempo \times GPS),v: Viaje}{\ent \\}
-	{\sum_{i=0}^{\longitud v - 1}\IfThenElse {elem_0 = v[i]_0 - 20}{dist(elem_1,v[i]_1)}{0}}
-	
+	{\sum_{i=0}^{\longitud v - 1}\IfThenElse {elem_0 = v[i]_0 - 20}{dist(elem_1,v[i]_1)}{0}}	
 
 \end{proc}
 
+
+\subsection*{Ejercicio 6}
+\begin{proc}{excesoDeVelocidad}{\In v: Viaje, \Out res: $\bool$}{}
+	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})}
+	\post{result = (\forall i : \ent) \True \leftrightarrow predicadoPrincipal2(i)}
+	
+	\pred{predicadoPrincipal2}{i:\individuo}{ 
+		pred1(i) \y \neg pred3(i)
+	}
 
 
 
