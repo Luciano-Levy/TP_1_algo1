@@ -70,7 +70,7 @@
 
 \subsection*{Ejercicio 3}
 \begin{proc}{enTerritorio}{\In v: \Viaje, \In r: \Dist, \Out res: $\bool$}{}{}
-	\pre{\esUnViajeValido(v) \wedge r>0}
+	\pre{esUnViajeValido(v) \wedge r>0}
 	\post{res = True \leftrightarrow \dentroDeR(v,r)}
 
 	\pred{dentroDeR}{((\forall i:\ent) (\forall j:\ent) (0 \leq i < j < |v| \implicaLuego (dist((v[j[1]),(v[i])[1]))<2r)}
