@@ -8,15 +8,14 @@
 \begin{document}
 
 \titulo{TP de Especificación}
-\subtitulo{AGREGAR TITULO TPE}
-\fecha{30 de Marzo de 2022}
+\fecha{15 de Abril de 2022}
 \materia{Algoritmos y Estructuras de Datos I}
 \grupo{Grupo 2}
 
 \newcommand{\dato}{\textit{Dato}}
 \newcommand{\individuo}{\textit{Individuo}}
 
-% Pongan cuantos integrantes quieran
+
 \integrante{De Galvagni, Constanza}{590/19}{constanzadegalvagni@gmail.com}
 \integrante{Marin, Candela}{1405/21}{canmarin17@gmail.com}
 \integrante{Pensotti, Santiago}{1579/21}{santipensotti@gmail.com}
@@ -36,7 +35,9 @@
 \end{description}
 
 \section{Constantes}
-	\aux{dist}{{p1}{GPS},{P2}{GPS}} 
+\begin{description}
+    \item aux dist(p1: GPS, p2: GPS) : Dist
+\end{description}
 
 \section{Problemas}
 % el * le saca el numero de seccion
@@ -44,25 +45,24 @@
 
 \begin{proc}{viajeValido}{\In v: Viaje, \Out res: $\bool$}{}
     \pre{\True}
-    \post{result = \True \leftrightarrow GPS(v) \in rangoGPS \y tiempo(v) \in rangoTiempo}
+    \post{result = \True \leftrightarrow \forall i : \ent) (0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})}
     
-    \pred{rangoGPS}{r1: GPS}{
-    	pred1(r1) \y pred2(r1)
+    
+    \pred{gpsEnRango}{\In g: GPS, \Out res: $\bool$}{
+    	(-90.0 \leq g_{0} \leq 90.0) \y (-180.0 \leq g_{1} \leq 180.0)
     }
     
-    \pred{pred1}{d:\dato} {...}
-    \pred{pred2}{d:\dato} {...}
+    \pred{tiempoEnRango}{\In t: Viaje, \Out res: $\bool$} {
+    t_{0} > 0
+    }
 \end{proc}
 
 
 \subsection*{Ejercicio 2}
 \begin{proc}{recorridoValido}{\In v: \Recorrido, \out result: $\bool$}{}
-	\pre{\True} % O viajeValido pasado a pred
-	\post{result = \True \leftrightarrow (\forall i:\ent) ( 0 \leq i < |v| \yLuego gpsValido(i) }
-	
+	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})}
+	\post{result = \True \leftrightarrow (\forall i:\ent) ( 0 \leq i < |v| \yLuego gpsEnRango(i) }
 
-	
-	
 \end{proc}
 
 \subsection*{Ejercicio 3}
