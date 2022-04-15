@@ -62,18 +62,18 @@
 
 
 \subsection*{Ejercicio 2}
-\begin{proc}{recorridoValido}{\In v: \Recorrido, \out result: $\bool$}{}
+\begin{proc}{recorridoValido}{\In v: Recorrido, \out result: $\bool$}{}
 	\pre{esUnViajeValido(v)}
 	\post{result = \True \leftrightarrow (\forall i:\ent) ( 0 \leq i < |v| \yLuego gpsEnRango(i) }
 
 \end{proc}
 
 \subsection*{Ejercicio 3}
-\begin{proc}{enTerritorio}{\In v: \Viaje, \In r: \Dist, \Out res: $\bool$}{}{}
+\begin{proc}{enTerritorio}{\In v: Viaje, \In r: Dist, \Out res: $\bool$}{}{}
 	\pre{esUnViajeValido(v) \wedge r>0}
 	\post{res = True \leftrightarrow \dentroDeR(v,r)}
 
-	\pred{dentroDeR}{((\forall i:\ent) (\forall j:\ent) ((0 \leq i , j < |v| \wedge j \neq i) \implicaLuego (dist(v[j]_1,v[i]_[1]) < 2r)}
+	\pred{dentroDeR}{v: Viaje,r: Dist}{((\forall i:\ent) (\forall j:\ent) ((0 \leq i , j < |v| \wedge j \neq i) \implicaLuego (dist(v[j]_1,v[i]_[1]) < 2r)}
 
 \end{proc}
 
