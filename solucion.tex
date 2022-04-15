@@ -115,8 +115,8 @@
 	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego esUnViajeValido}
 	\post{{\sum_{i=0}^{|v|-1}}  \IfThenElse {(viajeEnElTimpoPedido (v[i], t_{0}, t_{f}))}{1}{0}}
 	 
-	\pred {ViajeEnElTiempoPedido} {v: Viaje, t_{0}, t_{f}}{ 
-		(\exists i : \ent)(0 \leq i < |v| \yLuego t_{0} \leq v[i]_{0} \leq t_{f} }
+	\pred {ViajeEnElTiempoPedido} {v: Viaje, t_{0}: Tiempo, t_{f}: Tiempo}{ 
+		(\exists i : \ent)(0 \leq i < |v| \yLuego t_{0} \leq v[i]_{0} \leq t_{f}) }
 \end{proc}
 
 
