@@ -73,8 +73,7 @@
 	\pre{\esUnViajeValido(v) \wedge r>0}
 	\post{res = True \leftrightarrow \dentroDeR(v,r)}
 
-	\pred{dentroDeR}{v:\Viaje, r:\Dist}{(esUnViajeValido(v) \wedge r>0) \yLuego ((\forall i:\ent) (\forall j:\ent) (0 \leq i < j < |v| \implicaLuego (dist((v[j
-	[1]),(v[i])[1]))<r)}
+	\pred{dentroDeR}{((\forall i:\ent) (\forall j:\ent) (0 \leq i < j < |v| \implicaLuego (dist((v[j[1]),(v[i])[1]))<2r)}
 
 \end{proc}
 
