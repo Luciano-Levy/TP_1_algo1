@@ -37,6 +37,9 @@
 \section{Constantes}
 \begin{description}
     \item aux dist(p1: GPS, p2: GPS) : Dist
+    \item \pred{esUnViajeValido}{\In v: Viaje, \Out res: $\bool$}{
+    	(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})
+    }
 \end{description}
 
 \section{Problemas}
@@ -60,7 +63,7 @@
 
 \subsection*{Ejercicio 2}
 \begin{proc}{recorridoValido}{\In v: \Recorrido, \out result: $\bool$}{}
-	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})}
+	\pre{esUnViajeValido}
 	\post{result = \True \leftrightarrow (\forall i:\ent) ( 0 \leq i < |v| \yLuego gpsEnRango(i) }
 
 \end{proc}
@@ -80,7 +83,7 @@
 
 \subsection*{Ejercicio 4}
 \begin{proc}{tiempoTotal}{\In v: Viaje,\Out t: Tiempo}{}
-	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})} 
+	\pre{esUnViajeValido} 
 	\post{t =  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esMayor(v[i]_{0},v)}{v[i]_{0}}{(\IfThenElse {esMenor(v[i]_{0},v)}{v[i]_{0}}{0})}}
 	
 
@@ -95,7 +98,7 @@
 
 \subsection*{Ejercicio 5}
 \begin{proc}{distanciaTotal}{\In v: Viaje,\Out d: Dist}{}
-	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})} 
+	\pre{esUnViajeValido} 
 	\post{d =  \sum_{i=0}^{\longitud v - 1}distanciaSiguiente(v[i],v) }
 
 	\aux{distanciaSiguiente}{in elem: (Tiempo \times GPS),v: Viaje}{\ent \\}
@@ -106,7 +109,7 @@
 
 \subsection*{Ejercicio 6}
 \begin{proc}{excesoDeVelocidad}{\In v: Viaje, \Out res: $\bool$}{}
-	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})}
+	\pre{esUnViajeValido}
 	\post{result = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < 444)}
 	
 
