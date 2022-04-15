@@ -69,17 +69,12 @@
 \end{proc}
 
 \subsection*{Ejercicio 3}
-\begin{proc}{enTerritorio}{\In v: Viaje, \In r: Dist,\Out res: $\bool$}{}
-	\pre{|i| > MIN()}
-	\post{result = \True \leftrightarrow predicadoPrincipal2(i)}
-	
-	\pred{predicadoPrincipal2}{i:\individuo}{ 
-		pred1(i) \y \neg pred3(i)
-	}
-	
-	\pred{pred3}{i:\individuo} {...}
+\begin{proc}{enTerritorio}{\In v: \Viaje, \In r: \Dist, \Out res: $\bool$}{}{}
+\pre{\esUnViajeValido(v) , r>0}
+\post{res = True \Iff \dentroDeR(v,r)}
 \end{proc}
 
+\pred{dentroDeR}{v:\Viaje}{r:\Dist}{(esUnViajeValido(v) \wedge r>0) \yLuego ((\forall i:\ent) (\forall j:\ent) (0 \leq i < j < |v| \implicaLuego (dist((v[j][1]),(v[i])[1]))<r)}
 
 \subsection*{Ejercicio 4}
 \begin{proc}{tiempoTotal}{\In v: Viaje,\Out t: Tiempo}{}
