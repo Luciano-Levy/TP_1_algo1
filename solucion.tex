@@ -104,7 +104,7 @@
 \end{proc}
 
 
-\subsection{Ejercicio 6}
+\subsection*{Ejercicio 6}
 \begin{proc}{excesoDeVelocidad}{\In v: Viaje, \Out res: $\bool$}{}
 	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})}
 	\post{result = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < 444)}
