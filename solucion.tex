@@ -108,7 +108,15 @@
 	\pre{esUnViajeValido(v)}
 	\post{res = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < 444)}
 	
+\end{proc}
 
+\subsection{Ejercicio 7}
+\begin{proc}{flota}{\In v: \TLista{Viaje},\In t_{0}: Tiempo, \In t_{f}: Tiempo,  \Out res: \ent}{}
+	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego esUnViajeValido}
+	\post{{\sum_{i=0}^{|v|-1}}  \IfThenElse {(viajeEnElTimpoPedido (v[i], t_{0}, t_{f}))}{1}{0}}
+	 
+	\pred {ViajeEnElTiempoPedido} {v: Viaje, t_{0}, t_{f}}{ 
+		(\exists i : \ent)(0 \leq i < |v| \yLuego t_{0} \leq v[i]_{0} \leq t_{f} }
 \end{proc}
 
 
