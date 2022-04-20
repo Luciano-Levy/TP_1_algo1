@@ -69,7 +69,7 @@
 \end{proc}
 
 \subsection*{Ejercicio 3}
-\begin{proc}{enTerritorio}{\In v: Viaje, \In r: Dist, \Out res: $\bool$}{}{}
+\begin{proc}{enTerritorio}{\In v: Viaje, \In r: Dist, \Out res: $\bool$}{}
 	\pre{esUnViajeValido(v) \wedge r>0}
 	\post{res = True \leftrightarrow \dentroDeR(v,r)}
 
@@ -120,9 +120,14 @@
 \end{proc}
 
 \subsection*{Ejercicio 8}
-\begin{proc}{excesoDeVelocidad}{\In v: Viaje, \Out res: $\bool$}{}
-	\pre{esUnViajeValido(v)}
-	\post{res = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < 444)}
+\begin{proc}{excesoDeVelocidad}{\In v: Viaje, \In r: Recorrido,\In u: Dist,\Out res: \TLista{GPS}}{}
+	\pre{esUnViajeValido() \wedge esUnRecorridoValido \wedge u \geq 0} % HACER EL PREDICADO DE esUnRecorridoValido
+	\post{(\forall i: \ent)(0 \leq i < \longitud {res} \implicaLuego \neq(cubierto(res[i],v,u)) \wedge 
+	(\exists j: \ent)(0 \leq j < \longitud {res} \yLuego r[j] = res[i]))}
+
+	\pred {cubierto} {e: GPS,v: Viaje,u: \ent}{
+		(\exists i: \ent)(0 \leq i < \longitud v \yLuego dist(v[i]_1,e) \leq 1000 \times u)
+		}
 	
 \end{proc}
 
