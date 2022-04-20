@@ -119,5 +119,11 @@
 		(\exists i : \ent)(0 \leq i < |v| \yLuego t_{0} \leq v[i]_{0} \leq t_{f}) }
 \end{proc}
 
+\subsection*{Ejercicio 8}
+\begin{proc}{excesoDeVelocidad}{\In v: Viaje, \Out res: $\bool$}{}
+	\pre{esUnViajeValido(v)}
+	\post{res = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < 444)}
+	
+\end{proc}
 
 \end{document}
