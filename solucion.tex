@@ -122,7 +122,7 @@
 \subsection*{Ejercicio 8}
 \begin{proc}{excesoDeVelocidad}{\In v: Viaje, \In r: Recorrido,\In u: Dist,\Out res: \TLista{GPS}}{}
 	\pre{esUnViajeValido() \wedge esUnRecorridoValido \wedge u \geq 0} % HACER EL PREDICADO DE esUnRecorridoValido
-	\post{(\forall i: \ent)(0 \leq i < \longitud {res} \implicaLuego \neq(cubierto(res[i],v,u)) \wedge 
+	\post{(\forall i: \ent)(0 \leq i < \longitud {res} \implicaLuego \neg(cubierto(res[i],v,u)) \wedge 
 	(\exists j: \ent)(0 \leq j < \longitud {res} \yLuego r[j] = res[i]))}
 
 	\pred {cubierto} {e: GPS,v: Viaje,u: \ent}{
