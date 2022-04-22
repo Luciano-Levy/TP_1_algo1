@@ -112,7 +112,7 @@
 
 \subsection{Ejercicio 7}
 \begin{proc}{flota}{\In v: \TLista{Viaje},\In t_{0}: Tiempo, \In t_{f}: Tiempo,  \Out res: \ent}{}
-	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego esUnViajeValido}
+	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego esUnViajeValido)}
 	\post{{\sum_{i=0}^{|v|-1}}  \IfThenElse {(viajeEnElTimpoPedido (v[i], t_{0}, t_{f}))}{1}{0}}
 	 
 	\pred {ViajeEnElTiempoPedido} {v: Viaje, t_{0}: Tiempo, t_{f}: Tiempo}{ 
