@@ -130,5 +130,17 @@
 		}
 	
 \end{proc}
+\subsection*{Ejercicio 10}
+\begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{NOMBRE}}{}
+	\pre{}
+	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud v \implicaLuego res _i= (numeroDeFila(r_i,g),numeroDeColumna(r_i,g)}
+	
+	\aux{numeroDeFila}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
+	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_0 <= elem_0_0<=g[i]_1_0 }{i}{0}}	
 
+	\aux{numeroDeColumna}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
+	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_1 <= elem_0_1<=g[i]_1_1 }{i}{0}}	
+
+	
+\end{proc}
 \end{document}
