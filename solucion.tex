@@ -38,9 +38,17 @@
 \begin{description}
 \item aux dist(p1: GPS, p2: GPS) : Dist
 \item \pred{esUnViajeValido}{\In v: Viaje}{
-    	(\forall i : \ent)(0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})
+		(\forall i : \ent)(0 \leq i < \longitud v \wedge 0 \leq j < \longitud{v}-1  \implicaLuego gpsEnRango (v[j]_1,v[j+1]_1)) \wedge tiempoEnRango(v[i]_{0})
     }
 	% constante de 444
+
+    \pred{gpsEnRango}{\In g1: GPS, \In g2: GPS}{
+		( (-90.0 \leq g1_{0} \leq 90.0) \y (-180.0 \leq g1_{1} \leq 180.0) ) \y (  dist(g1,g2) \approx 20 )
+    }
+    
+    \pred{tiempoEnRango}{\In t: Viaje} {
+    t_{0} > 0
+    }
 \end{description}
 
 \section{Problemas}
@@ -49,23 +57,16 @@
 
 \begin{proc}{viajeValido}{\In v: Viaje, \Out res: $\bool$}{}
     \pre{\True}
-    \post{res = \True \leftrightarrow \forall i : \ent) (0 \leq i < |v| \implicaLuego gpsEnRango (v[i]_{1})) \wedge tiempoEnRango(v[i]_{0})}
+	\post{esUnViajeValido(v)}
     
     
-    \pred{gpsEnRango}{\In g: GPS}{
-    	(-90.0 \leq g_{0} \leq 90.0) \y (-180.0 \leq g_{1} \leq 180.0)
-    }
-    
-    \pred{tiempoEnRango}{\In t: Viaje} {
-    t_{0} > 0
-    }
 \end{proc}
 
 
 \subsection*{Ejercicio 2}
 \begin{proc}{recorridoValido}{\In v: Recorrido, \out result: $\bool$}{}
 	\pre{esUnViajeValido(v)}
-	\post{result = \True \leftrightarrow (\forall i:\ent) ( 0 \leq i < |v| \yLuego gpsEnRango(i) }
+	\post{result = \True \leftrightarrow (\forall i:\ent) ( 0 \leq i < \longitud v \yLuego gpsEnRango(i) }
 
 \end{proc}
 
@@ -74,7 +75,7 @@
 	\pre{esUnViajeValido(v) \wedge r>0}
 	\post{res = True \leftrightarrow \dentroDeR(v,r)}
 
-	\pred{dentroDeR}{v: Viaje,r: Dist}{((\forall i:\ent) (\forall j:\ent) ((0 \leq i , j < |v| \wedge j \neq i) \implicaLuego (dist(v[j]_1,v[i]_[1]) < 2r)}
+	\pred{dentroDeR}{v: Viaje,r: Dist}{((\forall i:\ent) (\forall j:\ent) ((0 \leq i , j < \longitud v \wedge j \neq i) \implicaLuego (dist(v[j]_1,v[i]_[1]) < 2r)}
 
 \end{proc}
 
@@ -113,11 +114,11 @@
 
 \subsection{Ejercicio 7}
 \begin{proc}{flota}{\In v: \TLista{Viaje},\In t_{0}: Tiempo, \In t_{f}: Tiempo,  \Out res: \ent}{}
-	\pre{(\forall i : \ent)(0 \leq i < |v| \implicaLuego esUnViajeValido)}
+	\pre{(\forall i : \ent)(0 \leq i < \longitud v \implicaLuego esUnViajeValido)}
 	\post{{\sum_{i=0}^{|v|-1}}  \IfThenElse {(viajeEnElTimpoPedido (v[i], t_{0}, t_{f}))}{1}{0}}
 	 
 	\pred {ViajeEnElTiempoPedido} {v: Viaje, t_{0}: Tiempo, t_{f}: Tiempo}{ 
-		(\exists i : \ent)(0 \leq i < |v| \yLuego t_{0} \leq v[i]_{0} \leq t_{f}) }
+		(\exists i : \ent)(0 \leq i < \longitud v \yLuego t_{0} \leq v[i]_{0} \leq t_{f}) }
 \end{proc}
 
 \subsection*{Ejercicio 8}
