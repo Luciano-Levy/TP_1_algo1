@@ -48,6 +48,11 @@
 \item \pred{tiempoEnRango}{\In t: Viaje} {
     t_{0} > 0
     }
+
+\item \pred{esUnRecorridoValido}{\In r: Recorrido}{
+		(\forall j:\ent)(0 \leq j < \longitud{r}-1  \implicaLuego gpsEnRango (r[j],r[j+1]))
+		}
+
 \item DistanciaMaximaMetros = 444
     
 \end{description}
