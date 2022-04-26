@@ -115,7 +115,7 @@
 
 \subsection*{Ejercicio 7}
 \begin{proc}{flota}{\In v: \TLista{Viaje},\In t_{0}: Tiempo, \In t_{f}: Tiempo,  \Out res: \ent}{}
-	\pre{(\forall i : \ent)(0 \leq i < \longitud v \implicaLuego esUnViajeValido)}
+	\pre{(\forall i : \ent)(0 \leq i < \longitud v \implicaLuego esUnViajeValido(v))}
 	\post{{\sum_{i=0}^{|v|-1}}  \IfThenElse {(viajeEnElTiempoPedido (v[i], t_{0}, t_{f}))}{1}{0}}
 	 
 	\pred {ViajeEnElTiempoPedido} {v: Viaje, t_{0}: Tiempo, t_{f}: Tiempo}{ 
@@ -123,8 +123,8 @@
 \end{proc}
 
 \subsection*{Ejercicio 8}
-\begin{proc}{excesoDeVelocidad}{\In v: Viaje, \In r: Recorrido,\In u: Dist,\Out res: \TLista{GPS}}{}
-	\pre{esUnViajeValido() \wedge esUnRecorridoValido \wedge u \geq 0} % HACER EL PREDICADO DE esUnRecorridoValido
+\begin{proc}{recorridoNoCubierto}{\In v: Viaje, \In r: Recorrido,\In u: Dist,\Out res: \TLista{GPS}}{}
+	\pre{esUnViajeValido(v) \wedge esUnRecorridoValido(r) \wedge u \geq 0} % HACER EL PREDICADO DE esUnRecorridoValido
 	\post{(\forall i: \ent)(0 \leq i < \longitud {res} \implicaLuego \neg(cubierto(res[i],v,u)) \wedge 
 	(\exists j: \ent)(0 \leq j < \longitud {res} \yLuego r[j] = res[i]))}
 
@@ -135,7 +135,7 @@
 \end{proc}
 \subsection*{Ejercicio 10}
 \begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{NOMBRE}}{}
-	\pre{}
+	\pre{recorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
 	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud v \implicaLuego res _i= (numeroDeFila(r_i,g),numeroDeColumna(r_i,g)}
 	
 	\aux{numeroDeFila}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
