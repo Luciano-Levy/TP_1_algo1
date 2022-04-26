@@ -40,18 +40,16 @@
 \item \pred{esUnViajeValido}{\In v: Viaje}{
 		(\forall i : \ent)(0 \leq i < \longitud v \wedge 0 \leq j < \longitud{v}-1  \implicaLuego gpsEnRango (v[j]_1,v[j+1]_1)) \wedge tiempoEnRango(v[i]_{0})
     }
-	% Esta mal porque falta chequear el ultimo elemento de viaje esta en rango
-	% Se me ocurre hacer un pred que cheque rango y otro que estan cada 20m
 
-    \pred{gpsEnRango}{\In g1: GPS, \In g2: GPS}{
-		( (-90.0 \leq g1_{0} \leq 90.0) \y (-180.0 \leq g1_{1} \leq 180.0) ) \y (  dist(g1,g2) \approx 20 )
+\item \pred{gpsEnRango}{\In g1: GPS, \In g2: GPS}{
+		( (-90.0 \leq g1_{0},g2_{0} \leq 90.0) \y (-180.0 \leq g1_{1},g2_{1} \leq 180.0) ) \y (  dist(g1,g2) \approx 20 )
     }
     
-    \pred{tiempoEnRango}{\In t: Viaje} {
+\item \pred{tiempoEnRango}{\In t: Viaje} {
     t_{0} > 0
     }
+\item DistanciaMaximaMetros = 444
     
-    % constante de 444
 \end{description}
 
 \section{Problemas}
@@ -111,7 +109,7 @@
 \subsection*{Ejercicio 6}
 \begin{proc}{excesoDeVelocidad(v)}{\In v: Viaje, \Out res: $\bool$}{}
 	\pre{esUnViajeValido(v)}
-	\post{res = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < 444)}
+	\post{res = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < DistanciaMaximaMetros)}
 	
 \end{proc}
 
