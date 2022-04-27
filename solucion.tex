@@ -171,4 +171,19 @@
 	}	
 \end{proc}	
 
+
+\subsection*{Ejercicio 13}
+\begin{proc}{histograma}{\In xs: \TLista{Viaje},\In bins: \ent,out cuentas: \TLista{\ent},out limites: \TLista{\float}}{}
+	\pre{(\forall i: \ent)(0 \leq i < \longitud{xs} \implicaLuego esUnViajeValido(xs[i])) \wedge bins \geq 1}
+	\post{}
+	\pred{esVelocidadMaxima}{\In i: \ent,\In v: Viaje}{
+		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq frac{dist(v[j]_1,distanciaSiguiente(v[j]_1,v))}{20})
+		}
+
+		\pred{limitesValidos}{\In limites: \TLista(\float), \In bins: \ent, \In xs: \TLista{Viaje}}{
+			\longitud{limites} = \longitud{bins} + 1 \wedge
+			(\forall i: \ent)(0 \leq i < \longitud{limites} -1 \wedge limites[i] > limites[i+1]) \wedge 
+			(\exists velMayorMaxima,velMayorMinima: \ent)(\forall j:\ent)(0 \leq j < \longitud{xs}  \yLuego %Chequear que sean velMaxima )
+			}
+	
 \end{document}
