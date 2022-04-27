@@ -141,12 +141,12 @@
 \subsection*{Ejercicio 10}
 \begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{NOMBRE}}{}
 	\pre{recorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
-	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud v \implicaLuego res _i= (numeroDeFila(r_i,g),numeroDeColumna(r_i,g)}
+	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud v \implicaLuego res _i= (numeroFila(r_i,g),numeroColumna(r_i,g)}
 	
-	\aux{numeroDeFila}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
+	\aux{numeroFila}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
 	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_0 <= elem_0_0<=g[i]_1_0 }{i}{0}}	
 
-	\aux{numeroDeColumna}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
+	\aux{numeroColumna}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
 	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_1 <= elem_0_1<=g[i]_1_1 }{i}{0}}
 
 \end{proc}
@@ -155,11 +155,16 @@
 \subsection{Ejercicio 11}
 \begin{proc}{cantidadDeSaltos}{\In g: Grilla,\In v: Viaje \Out res: \ent}{}
 	\pre{esUnViajeValido(v) \y enGrilla(g,v)}
-	\post{res = sumSaltos(v,g) div 2}
+	\post{res = sumSaltos(g,v)}
 	 
-		
+	 
+	 \pred {enGrilla} {\In g: Grilla, \In v: Viaje} {
+	(0 \leq i < |v|) \exists ((numeroFila(v[i],g) \y  (numeroColumna(v[i],g))
+	}
+	
+	
 	\pred {esUnSalto} {\In g: Grilla, \In v: Viaje,\In i: \ent}{ 
-		(\exists j : \ent)(0 \leq j < |v|)  v[j]_{0} -  v[i]_{0} = 20 \yLuego ((numeroFila(v[j]_{1}) - numeroFila(v[i]_{1}) \geq 3) \vee (numeroCol(v[j]_{1}) - numeroCol(v[i]_{1}) \geq 3)) }
+		(\exists j : \ent)(0 \leq j < |v|)  v[j]_{0} -  v[i]_{0} = 20 \yLuego ((numeroFila(v[j]_{1}) - numeroFila(v[i]_{1}) \geq 3) \vee (numeroColumna(v[j]_{1}) - numeroColumna(v[i]_{1}) \geq 3)) }	
 		
 	aux sumSaltos (in g: Grilla, in v: Viaje) {
 	  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}
