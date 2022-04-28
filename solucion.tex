@@ -88,13 +88,13 @@
 \subsection*{Ejercicio 4}
 \begin{proc}{tiempoTotal}{\In v: Viaje,\Out t: Tiempo}{}
 	\pre{esUnViajeValido(v)} 
-	\post{t =  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esMayor(v[i]_{0},v)}{v[i]_{0}}{(\IfThenElse {esMenor(v[i]_{0},v)}{v[i]_{0}}{0})}}
+	\post{t =  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esMayor(v[i]_{0},v)}{v[i]_{0}}{(\IfThenElse {esMenor(v[i]_{0},v)}{-v[i]_{0}}{0})}}
 	
 
-	\pred{esMayor}{t: Tiempo, v: Viaje, r: $\bool$}{ (\forall x:\ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego t > v[x]_{0})
+	\pred{esMayor}{t: Tiempo, v: Viaje}{ (\forall x:\ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego t \geq v[x]_{0})
 	}
 	
-	\pred{esMenor}{t: Tiempo, v: Viaje, r: $\bool$}{ (\forall x:\ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego t < v[x]_{0})
+	\pred{esMenor}{t: Tiempo, v: Viaje}{ (\forall x:\ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego t \leq v[x]_{0})
 		
 	}
 \end{proc}
@@ -112,7 +112,7 @@
 
 
 \subsection*{Ejercicio 6}
-\begin{proc}{excesoDeVelocidad(v)}{\In v: Viaje, \Out res: $\bool$}{}
+\begin{proc}{excesoDeVelocidad}{\In v: Viaje, \Out res: $\bool$}{}
 	\pre{esUnViajeValido(v)}
 	\post{res = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < DistanciaMaximaMetros)}
 	
