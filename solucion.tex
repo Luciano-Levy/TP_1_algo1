@@ -179,7 +179,7 @@
 	\pred{limitesValidos}{\In limites: \TLista{\float}, \In bins: \ent, \In xs: \TLista{Viaje}}{
 		\longitud{limites} = bins + 1 \y \\
 		(\forall i: \ent)(0 \leq i < \longitud{limites}-1  \y  limites[i] > limites[i+1])  \y \\ 
-		(\exists k,j: \float)(velMayoryMenordeMaximas(k,j) \yLuego (\forall k: \ent)(0 \leq k < \longitud{limites}-1 \implicaLuego limites[i] = limites[i+1] - \frac{velMayorMaxima - velMenorMxima}{bins})
+		(\exists k,j: \float)(velMayoryMenordeMaximas(k,j) \yLuego (\forall k: \ent)(0 \leq k < \longitud{limites}-1 \implicaLuego limites[i] = limites[i+1] - \frac{k - j}{bins})
 		}
 		\pred{cuentasValidas}{\In cuentas: \TLista{\ent},\In limites: \TLista{\float},\In xs: \TLista{Viaje},\In bins:\ent}{
 			\longitud{cuentas} = bins \y \\
