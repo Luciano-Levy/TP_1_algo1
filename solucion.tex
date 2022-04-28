@@ -188,7 +188,7 @@
 			cuentas[i] = \sum_{j=0}^{\longitud{xs}-1} \IfThenElse{(\exists k: \ent)(esVelocidadMaxima(k,xs[j]) \yLuego limites[i] \leq  k \leq limites[i+1])}{1}{0})
 			}
 	\pred{esVelocidadMaxima}{\In i: \ent,\In v: Viaje}{
-		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq frac{dist($v[j]_1$,distanciaSiguiente($v[j]_1$,v))}{20})
+		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq \frac{dist(v[j]_1,distanciaSiguiente(v[j]_1,v))}{20})
 		}
 	\pred{velMayoryMenordeMaximas}{\In velMayorMaxima, \In velMenorMaxima,\In limites: \TLista{\float},\In bins: \ent}{
 		(\forall viajes:\ent)(\exists velMax: \ent)(0 \leq viajes < \longitud{xs} \implicaLuego esVelocidadMaxima(velMax,xs[j]) \yLuego
