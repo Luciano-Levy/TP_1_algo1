@@ -176,14 +176,19 @@
 \begin{proc}{histograma}{\In xs: \TLista{Viaje},\In bins: \ent,out cuentas: \TLista{\ent},out limites: \TLista{\float}}{}
 	\pre{(\forall i: \ent)(0 \leq i < \longitud{xs} \implicaLuego esUnViajeValido(xs[i])) \wedge bins \geq 1}
 	\post{limitesValidos(limites,bins,xs) \y cuentasValidas()}
-	\pred{esVelocidadMaxima}{\In i: \ent,\In v: Viaje}{
-		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq frac{dist($v[j]_1$,distanciaSiguiente($v[j]_1$,v))}{20})
-		}
-
 	\pred{limitesValidos}{\In limites: \TLista{\float}, \In bins: \ent, \In xs: \TLista{Viaje}}{
-		\longitud{limites} = \longitud{bins} + 1 \y \\
+		\longitud{limites} = bins + 1 \y \\
 		(\forall i: \ent)(0 \leq i < \longitud{limites}-1  \y  limites[i] > limites[i+1])  \y \\ 
 		(\exists k,j: \float)(velMayoryMenordeMaximas(k,j) \yLuego (\forall k: \ent)(0 \leq k < \longitud{limites}-1 \implicaLuego limites[i] = limites[i+1] - \frac{velMayorMaxima - velMenorMxima}{bins})
+		}
+		\pred{cuentasValidas}{\In cuentas: \TLista{\ent},\In limites: \TLista{\float},\In xs: \TLista{Viaje},\In bins:\ent}{
+			\longitud{cuentas} = bins \y \\
+			(\forall i: \ent)(0 \leq i < \longitud{cuentas} %que es igual a \longitud{limites} -1 
+			\implicaLuego 
+			cuentas[i] = \sum_{j=0}^{\longitud{xs}-1} \IfThenElse{(\exists k: \ent)(esVelocidadMaxima(k,xs[j]) \yLuego limites[i] \leq  k \leq limites[i+1])}{1}{0})
+			}
+	\pred{esVelocidadMaxima}{\In i: \ent,\In v: Viaje}{
+		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq frac{dist($v[j]_1$,distanciaSiguiente($v[j]_1$,v))}{20})
 		}
 	\pred{velMayoryMenordeMaximas}{\In velMayorMaxima, \In velMenorMaxima,\In limites: \TLista{\float},\In bins: \ent}{
 		(\forall viajes:\ent)(\exists velMax: \ent)(0 \leq viajes < \longitud{xs} \implicaLuego esVelocidadMaxima(velMax,xs[j]) \yLuego
