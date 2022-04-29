@@ -174,21 +174,13 @@
 \subsection*{Ejercicio 12}
 \begin{proc}{corregirViaje}{\Inout v:Viaje,\In errores: \TLista{Tiempo}}{}
 	\pre{\longitud{v} > 5 \y esUnViajeValido(v) \y \longitud{errores} > 0.1 \times \longitud{v} \y v = v_0 }
-	\post{\longitud{v} = \longitud{v_0} \y
-	errorPrincipio(v_0[0]_0) \y 
-	errorFinal(v_0[\longitud{v_0}-1]_0) \y 
-	(\forall i:\ent)(0 < i < \longitud{v}-1 \implicaLuego )}
+	\post{}
 
 	\pred{enRecta}{g,p1,p2: GPS}{
 		(\exists r: \float)(r \times (p2_0 - p1_0) + p1_0 = g_0) \y \\
 		(r \times (p2_1 - p1_1) + p1_1 = g_1) \y \\
 		(p1_0 \leq g_0 \leq p2_0 \y p1_1 \leq g_1 \leq p2_1)
 		}
-	\aux{validoCercanoAtras}{v:Viaje,errores: \TLista{Tiempo},i: \ent}{(Tiempo \times GPS) \\}
-	{\IfThenElse{\neg(v[i-1]_0 \in errores)}{v[i-1]}{validoCercanoAtras(v,errores,i-1)}}
-
-	\aux{validoCercanoAdelante}{v:Viaje,errores: \TLista{Tiempo},i: \ent}{(Tiempo \times GPS)\\}
-	{\IfThenElse{\neg(v[i+1]_0 \in errores)}{v[i+1]}{validoCercanoAtras(v,errores,i+1)}}
 \end{proc}
 
 \subsection*{Ejercicio 13}
