@@ -114,7 +114,7 @@
 \subsection*{Ejercicio 6}
 \begin{proc}{excesoDeVelocidad}{\In v: Viaje, \Out res: $\bool$}{}
 	\pre{esUnViajeValido(v)}
-	\post{res = \True \leftrightarrow  (\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < DistanciaMaximaMetros)}
+	\post{res = \True \leftrightarrow  \neg(\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < DistanciaMaximaMetros)}
 	
 \end{proc}
 \newpage
