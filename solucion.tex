@@ -88,7 +88,7 @@
 \subsection*{Ejercicio 4}
 \begin{proc}{tiempoTotal}{\In v: Viaje,\Out t: Tiempo}{}
 	\pre{esUnViajeValido(v)} 
-	\post{(\exist{i,j}:\ent)(0 \leq i,j < \longitud{v} \yLuego esMayor(v[i]_0,v) \y esMenor(v[j]_0,v) \y t = v[i]_0 - v[j]_0)}
+	\post{(\exists i,j : \ent)(0 \leq i,j < \longitud{v} \yLuego esMayor(v[i]_0,v) \y esMenor(v[j]_0,v) \y t = v[i]_0 - v[j]_0)}
 	
 
 	\pred{esMayor}{t: Tiempo, v: Viaje}{ (\forall x:\ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego t \geq v[x]_{0})
