@@ -166,10 +166,10 @@
 	\pred {esUnSalto} {\In g: Grilla, \In v: Viaje,\In i: \ent}{ 
 		(\exists j : \ent)(0 \leq j < |v|)  v[j]_{0} -  v[i]_{0} = 20 \yLuego ((numeroFila(v[j]_{1}) - numeroFila(v[i]_{1}) \geq 3) \vee (numeroColumna(v[j]_{1}) - numeroColumna(v[i]_{1}) \geq 3)) }	
 		
-	aux sumSaltos (in g: Grilla, in v: Viaje) {
-	  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}
-	}	
-\end{proc}	
+	\aux {sumSaltos} {(in g: Grilla, in v: Viaje)} {\ent \\}
+	  {\sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}}	
+	\end{proc}	
+	
 
 
 \subsection*{Ejercicio 13}
