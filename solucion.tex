@@ -37,7 +37,7 @@
 \section{Constantes}
 \begin{description}
 \item aux dist(p1: GPS, p2: GPS) : Dist
-\item \pred{esUnViajeValido}{v: Viaje}{
+\item \pred{esUnViajeValido}{\In v: Viaje}{
 		(\forall i : \ent)(0 \leq i < \longitud v \wedge 0 \leq j < \longitud{v}-1  \implicaLuego gpsEnRango (v[j]_1,v[j+1]_1)) \wedge tiempoEnRango(v[i]_{0})
     }
 
@@ -45,11 +45,11 @@
 		( (-90.0 \leq g1_{0},g2_{0} \leq 90.0) \y (-180.0 \leq g1_{1},g2_{1} \leq 180.0) ) \y (  dist(g1,g2) \approx 20 )
     }
     
-\item \pred{tiempoEnRango}{ t: Viaje} {
+\item \pred{tiempoEnRango}{\In t: Viaje} {
     t_{0} > 0
     }
 
-\item \pred{esUnRecorridoValido}{ r: Recorrido}{
+\item \pred{esUnRecorridoValido}{\In r: Recorrido}{
 		(\forall j:\ent)(0 \leq j < \longitud{r}-1  \implicaLuego gpsEnRango (r[j],r[j+1]))
 		}
 
@@ -143,10 +143,10 @@
 	\pre{recorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
 	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud v \implicaLuego res _i= (numeroFila(r_i,g),numeroColumna(r_i,g)}
 	
-	\aux{numeroFila}{elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
+	\aux{numeroFila}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
 	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_0 <= elem_0_0<=g[i]_1_0 }{i}{0}}	
 
-	\aux{numeroColumna}{elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
+	\aux{numeroColumna}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
 	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_1 <= elem_0_1<=g[i]_1_1 }{i}{0}}
 
 \end{proc}
@@ -158,79 +158,39 @@
 	\post{res = sumSaltos(g,v)}
 	 
 	 
-	 \pred {enGrilla} {g: Grilla, v: Viaje} {
+	 \pred {enGrilla} {\In g: Grilla, \In v: Viaje} {
 	(\forall i : \ent)(0 \leq i < |v|) ((numeroFila(v[i],g) \neq 0 \y  (numeroColumna(v[i],g) \neq 0)
 	}
 	
 	
-	\pred {esUnSalto} { g: Grilla,  v: Viaje, i: \ent}{ 
+	\pred {esUnSalto} {\In g: Grilla, \In v: Viaje,\In i: \ent}{ 
 		(\exists j : \ent)(0 \leq j < |v|)  v[j]_{0} -  v[i]_{0} = 20 \yLuego ((numeroFila(v[j]_{1}) - numeroFila(v[i]_{1}) \geq 3) \vee (numeroColumna(v[j]_{1}) - numeroColumna(v[i]_{1}) \geq 3)) }	
 		
-<<<<<<< HEAD
-	aux sumSaltos ( g: Grilla, v: Viaje) {
-	  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}
-	}	
-\end{proc}	
-||||||| 65bf113
-	aux sumSaltos (in g: Grilla, in v: Viaje) {
-	  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}
-	}	
-\end{proc}	
-=======
 	\aux {sumSaltos} {(in g: Grilla, in v: Viaje)} {\ent \\}
 	  {\sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}}	
 	\end{proc}	
 	
->>>>>>> 2ca3e31cfc4083b8f51298a6d27fd43e0bb38252
-
-\subsection*{Ejercicio 12}
-\begin{proc}{corregirViaje}{\Inout v:Viaje,\In errores: \TLista{Tiempo}}{}
-	\pre{\longitud{v} > 5 \y esUnViajeValido(v) \y \longitud{errores} > 0.1 \times \longitud{v} \y v = v_0 }
-	\post{\longitud{v} = \longitud{v_0} \y
-	errorPrincipio(v_0[0]_0) \y 
-	errorFinal(v_0[\longitud{v_0}-1]_0) \y 
-	(\forall i:\ent)(0 < i < \longitud{v}-1 \implicaLuego )}
-
-	\pred{enRecta}{g,p1,p2: GPS}{
-		(\exists r: \float)(r \times (p2_0 - p1_0) + p1_0 = g_0) \y \\
-		(r \times (p2_1 - p1_1) + p1_1 = g_1) \y \\
-		(p1_0 \leq g_0 \leq p2_0 \y p1_1 \leq g_1 \leq p2_1)
-		}
-	\aux{validoCercanoAtras}{v:Viaje,errores: \TLista{Tiempo},i: \ent}{(Tiempo \times GPS) \\}
-	{\IfThenElse{\neq(v[i-1]_0 \in errores)}{v[i-1]}{validoCercanoAtras(v,errores,i-1)}}
-
-	\aux{validoCercanoAdelante}{v:Viaje,errores: \TLista{Tiempo},i: \ent}{(Tiempo \times GPS)\\}
-	{\IfThenElse{\neq(v[i+1]_0 \in errores)}{v[i+1]}{validoCercanoAtras(v,errores,i+1)}}
-\end{proc}
 
 
 \subsection*{Ejercicio 13}
 \begin{proc}{histograma}{\In xs: \TLista{Viaje},\In bins: \ent,out cuentas: \TLista{\ent},out limites: \TLista{\float}}{}
 	\pre{(\forall i: \ent)(0 \leq i < \longitud{xs} \implicaLuego esUnViajeValido(xs[i])) \wedge bins \geq 1}
-<<<<<<< HEAD
-	\post{limitesValidos(limites,bins,xs) \y cuentasValidas()}
-	\pred{limitesValidos}{ limites: \TLista{\float}, bins: \ent, xs: \TLista{Viaje}}{
-||||||| 65bf113
-	\post{limitesValidos(limites,bins,xs) \y cuentasValidas()}
-	\pred{limitesValidos}{\In limites: \TLista{\float}, \In bins: \ent, \In xs: \TLista{Viaje}}{
-=======
 	\post{limitesValidos(limites,bins,xs) \y cuentasValidas(cuentas,limites,xs,bins)}
 	\pred{limitesValidos}{\In limites: \TLista{\float}, \In bins: \ent, \In xs: \TLista{Viaje}}{
->>>>>>> 2ca3e31cfc4083b8f51298a6d27fd43e0bb38252
 		\longitud{limites} = bins + 1 \y \\
 		(\forall i: \ent)(0 \leq i < \longitud{limites}-1  \y  limites[i] > limites[i+1])  \y \\ 
 		(\exists k,j: \float)(velMayoryMenordeMaximas(k,j) \yLuego (\forall k: \ent)(0 \leq k < \longitud{limites}-1 \implicaLuego limites[i] = limites[i+1] - \frac{k - j}{bins})
 		}
-	\pred{cuentasValidas}{ cuentas: \TLista{\ent}, limites: \TLista{\float}, xs: \TLista{Viaje}, bins:\ent}{
+	\pred{cuentasValidas}{\In cuentas: \TLista{\ent},\In limites: \TLista{\float},\In xs: \TLista{Viaje},\In bins:\ent}{
 		\longitud{cuentas} = bins \y \\
 		(\forall i: \ent)(0 \leq i < \longitud{cuentas} %que es igual a \longitud{limites} -1 
 		\implicaLuego 
 		cuentas[i] = \sum_{j=0}^{\longitud{xs}-1} \IfThenElse{(\exists k: \ent)(esVelocidadMaxima(k,xs[j]) \yLuego limites[i] \leq  k \leq limites[i+1])}{1}{0})
 		}
-	\pred{esVelocidadMaxima}{ i: \ent, v: Viaje}{
+	\pred{esVelocidadMaxima}{\In i: \ent,\In v: Viaje}{
 		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq \frac{dist(v[j]_1,distanciaSiguiente(v[j]_1,v))}{20})
 		}
-	\pred{velMayoryMenordeMaximas}{velMayorMaxima,velMenorMaxima,limites: \TLista{\float}, bins: \ent}{
+	\pred{velMayoryMenordeMaximas}{\In velMayorMaxima, \In velMenorMaxima,\In limites: \TLista{\float},\In bins: \ent}{
 		(\forall viajes:\ent)(\exists velMax: \ent)(0 \leq viajes < \longitud{xs} \implicaLuego esVelocidadMaxima(velMax,xs[j]) \yLuego
 		(velMayorMaxima \geq velMax \wedge velMenorMaxima \leq velMax)
 	}
