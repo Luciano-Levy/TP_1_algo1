@@ -185,10 +185,10 @@
 		(p1_0 \leq g_0 \leq p2_0 \y p1_1 \leq g_1 \leq p2_1)
 		}
 	\aux{validoCercanoAtras}{v:Viaje,errores: \TLista{Tiempo},i: \ent}{(Tiempo \times GPS) \\}
-	{\IfThenElse{\neq(v[i-1]_0 \in errores)}{v[i-1]}{validoCercanoAtras(v,errores,i-1)}}
+	{\IfThenElse{\neg(v[i-1]_0 \in errores)}{v[i-1]}{validoCercanoAtras(v,errores,i-1)}}
 
 	\aux{validoCercanoAdelante}{v:Viaje,errores: \TLista{Tiempo},i: \ent}{(Tiempo \times GPS)\\}
-	{\IfThenElse{\neq(v[i+1]_0 \in errores)}{v[i+1]}{validoCercanoAtras(v,errores,i+1)}}
+	{\IfThenElse{\neg(v[i+1]_0 \in errores)}{v[i+1]}{validoCercanoAtras(v,errores,i+1)}}
 \end{proc}
 
 \subsection*{Ejercicio 13}
