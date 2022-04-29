@@ -88,7 +88,7 @@
 \subsection*{Ejercicio 4}
 \begin{proc}{tiempoTotal}{\In v: Viaje,\Out t: Tiempo}{}
 	\pre{esUnViajeValido(v)} 
-	\post{(\exist{i,j}:\ent)(0 \leq i,j < \longitud{v} \yLuego esMayor(v[i]_0,v) \y esMenor(v[j]_0,v) \y t = v[i]_0 - v[j]_0)}
+	\post{(\exists i,j : \ent)(0 \leq i,j < \longitud{v} \yLuego esMayor(v[i]_0,v) \y esMenor(v[j]_0,v) \y t = v[i]_0 - v[j]_0)}
 	
 
 	\pred{esMayor}{t: Tiempo, v: Viaje}{ (\forall x:\ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego t \geq v[x]_{0})
@@ -139,7 +139,7 @@
 	
 \end{proc}
 \subsection*{Ejercicio 10}
-\begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{NOMBRE}}{}
+\begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{Nombre}}{}
 	\pre{recorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
 	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud v \implicaLuego res _i= (numeroFila(r_i,g),numeroColumna(r_i,g)}
 	
@@ -166,10 +166,22 @@
 	\pred {esUnSalto} { g: Grilla,  v: Viaje, i: \ent}{ 
 		(\exists j : \ent)(0 \leq j < |v|)  v[j]_{0} -  v[i]_{0} = 20 \yLuego ((numeroFila(v[j]_{1}) - numeroFila(v[i]_{1}) \geq 3) \vee (numeroColumna(v[j]_{1}) - numeroColumna(v[i]_{1}) \geq 3)) }	
 		
+<<<<<<< HEAD
 	aux sumSaltos ( g: Grilla, v: Viaje) {
 	  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}
 	}	
 \end{proc}	
+||||||| 65bf113
+	aux sumSaltos (in g: Grilla, in v: Viaje) {
+	  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}
+	}	
+\end{proc}	
+=======
+	\aux {sumSaltos} {(in g: Grilla, in v: Viaje)} {\ent \\}
+	  {\sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}}	
+	\end{proc}	
+	
+>>>>>>> 2ca3e31cfc4083b8f51298a6d27fd43e0bb38252
 
 \subsection*{Ejercicio 12}
 \begin{proc}{corregirViaje}{\Inout v:Viaje,\In errores: \TLista{Tiempo}}{}
@@ -195,8 +207,16 @@
 \subsection*{Ejercicio 13}
 \begin{proc}{histograma}{\In xs: \TLista{Viaje},\In bins: \ent,out cuentas: \TLista{\ent},out limites: \TLista{\float}}{}
 	\pre{(\forall i: \ent)(0 \leq i < \longitud{xs} \implicaLuego esUnViajeValido(xs[i])) \wedge bins \geq 1}
+<<<<<<< HEAD
 	\post{limitesValidos(limites,bins,xs) \y cuentasValidas()}
 	\pred{limitesValidos}{ limites: \TLista{\float}, bins: \ent, xs: \TLista{Viaje}}{
+||||||| 65bf113
+	\post{limitesValidos(limites,bins,xs) \y cuentasValidas()}
+	\pred{limitesValidos}{\In limites: \TLista{\float}, \In bins: \ent, \In xs: \TLista{Viaje}}{
+=======
+	\post{limitesValidos(limites,bins,xs) \y cuentasValidas(cuentas,limites,xs,bins)}
+	\pred{limitesValidos}{\In limites: \TLista{\float}, \In bins: \ent, \In xs: \TLista{Viaje}}{
+>>>>>>> 2ca3e31cfc4083b8f51298a6d27fd43e0bb38252
 		\longitud{limites} = bins + 1 \y \\
 		(\forall i: \ent)(0 \leq i < \longitud{limites}-1  \y  limites[i] > limites[i+1])  \y \\ 
 		(\exists k,j: \float)(velMayoryMenordeMaximas(k,j) \yLuego (\forall k: \ent)(0 \leq k < \longitud{limites}-1 \implicaLuego limites[i] = limites[i+1] - \frac{k - j}{bins})
