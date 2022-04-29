@@ -177,8 +177,17 @@
 	\post{(\forall i: \ent)(0 \leq i < \longitud{v} \implicaLuego v[i]_0 \in errores \y
 	(\exists k,j :\ent)(0 \leq k,j < \longitud{v} \y k \neq j \yLuego
 	masCercanos(v[i]_0, v[k]_0,v) \y masCercanos(v[i]_0, v[j]_0,v) \yLuego
-	estaenRectayPunto(v[i],v[k],v[j])))
+	estaEnRectayPunto(v[i],v[k],v[j])))
 	}
+	
+	\pred{masCercanos}{i,j:Tiempo,v:Viaje}{
+		(\forall r:\ent)(0 \leq r < \longitud{v} \implicaLuego restaModulo(i,v[r]_0) \leq restaModulo(i,j))
+		}
+	
+
+	\pred{estaEnRectayPunto}{g,p1,p2: (Tiempo X Gps)}{
+		estaEnRectaLat(g,p1,p2) \y estaEnRectaLong(g,p1,p2)
+		}
 
 	\pred{estaEnRectaLat}{g,p1,p2: (Tiempo X Gps)}{
 	    g_0_0 = \frac{(p2_0_0-p1_0_0)(g_2-p1_2)}{p2_2-p1_2} + p1_0_0
@@ -186,6 +195,10 @@
 	\pred{estaEnRectaLong}{g,p1,p2: GPS}{
         g_0_1 = \frac{(p2_0_1-p1_0_1)(g_2-p1_2)}{p2_2-p1_2} + p1_0_1
 		}
+
+		\aux{restaModulo}{a,b: \ent}{\ent \\}{
+			\IfThenElse{a \geq b}{a-b}{b-a}
+			}
 \end{proc}
 
 \subsection*{Ejercicio 13}
