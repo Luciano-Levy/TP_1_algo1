@@ -88,7 +88,7 @@
 \subsection*{Ejercicio 4}
 \begin{proc}{tiempoTotal}{\In v: Viaje,\Out t: Tiempo}{}
 	\pre{esUnViajeValido(v)} 
-	\post{t =  \sum_{i=0}^{\longitud v - 1} \IfThenElse {esMayor(v[i]_{0},v)}{v[i]_{0}}{(\IfThenElse {esMenor(v[i]_{0},v)}{-v[i]_{0}}{0})}}
+	\post{(\exist{i,j}:\ent)(0 \leq i,j < \longitud{v} \yLuego esMayor(v[i]_0,v) \y esMenor(v[j]_0,v) \y t = v[i]_0 - v[j]_0)}
 	
 
 	\pred{esMayor}{t: Tiempo, v: Viaje}{ (\forall x:\ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego t \geq v[x]_{0})
@@ -181,12 +181,12 @@
 		(\forall i: \ent)(0 \leq i < \longitud{limites}-1  \y  limites[i] > limites[i+1])  \y \\ 
 		(\exists k,j: \float)(velMayoryMenordeMaximas(k,j) \yLuego (\forall k: \ent)(0 \leq k < \longitud{limites}-1 \implicaLuego limites[i] = limites[i+1] - \frac{k - j}{bins})
 		}
-		\pred{cuentasValidas}{\In cuentas: \TLista{\ent},\In limites: \TLista{\float},\In xs: \TLista{Viaje},\In bins:\ent}{
-			\longitud{cuentas} = bins \y \\
-			(\forall i: \ent)(0 \leq i < \longitud{cuentas} %que es igual a \longitud{limites} -1 
-			\implicaLuego 
-			cuentas[i] = \sum_{j=0}^{\longitud{xs}-1} \IfThenElse{(\exists k: \ent)(esVelocidadMaxima(k,xs[j]) \yLuego limites[i] \leq  k \leq limites[i+1])}{1}{0})
-			}
+	\pred{cuentasValidas}{\In cuentas: \TLista{\ent},\In limites: \TLista{\float},\In xs: \TLista{Viaje},\In bins:\ent}{
+		\longitud{cuentas} = bins \y \\
+		(\forall i: \ent)(0 \leq i < \longitud{cuentas} %que es igual a \longitud{limites} -1 
+		\implicaLuego 
+		cuentas[i] = \sum_{j=0}^{\longitud{xs}-1} \IfThenElse{(\exists k: \ent)(esVelocidadMaxima(k,xs[j]) \yLuego limites[i] \leq  k \leq limites[i+1])}{1}{0})
+		}
 	\pred{esVelocidadMaxima}{\In i: \ent,\In v: Viaje}{
 		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq \frac{dist(v[j]_1,distanciaSiguiente(v[j]_1,v))}{20})
 		}
