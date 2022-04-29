@@ -139,7 +139,7 @@
 	
 \end{proc}
 \subsection*{Ejercicio 10}
-\begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{NOMBRE}}{}
+\begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{Nombre}}{}
 	\pre{recorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
 	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud v \implicaLuego res _i= (numeroFila(r_i,g),numeroColumna(r_i,g)}
 	
