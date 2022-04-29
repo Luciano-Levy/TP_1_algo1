@@ -180,10 +180,11 @@
 	estaenRectayPunto(v[i],v[k],v[j])))
 	}
 
-	\pred{enRecta}{g,p1,p2: GPS}{
-		(\exists r: \float)(r \times (p2_0 - p1_0) + p1_0 = g_0) \y \\
-		(r \times (p2_1 - p1_1) + p1_1 = g_1) \y \\
-		(p1_0 \leq g_0 \leq p2_0 \y p1_1 \leq g_1 \leq p2_1)
+	\pred{estaEnRectaLat}{g,p1,p2: (Tiempo X Gps)}{
+	    g_0_0 = \frac{(p2_0_0-p1_0_0)(g_2-p1_2)}{p2_2-p1_2} + p1_0_0
+		}
+	\pred{estaEnRectaLong}{g,p1,p2: GPS}{
+        g_0_1 = \frac{(p2_0_1-p1_0_1)(g_2-p1_2)}{p2_2-p1_2} + p1_0_1
 		}
 \end{proc}
 
@@ -209,5 +210,5 @@
 		(\forall viajes:\ent)(\exists velMax: \ent)(0 \leq viajes < \longitud{xs} \implicaLuego esVelocidadMaxima(velMax,xs[j]) \yLuego
 		(velMayorMaxima \geq velMax \wedge velMenorMaxima \leq velMax)
 	}
-	
+\end{proc}
 \end{document}
