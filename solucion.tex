@@ -169,7 +169,7 @@
 \newpage
 \subsection*{Ejercicio 10}
 \begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{Nombre}}{}
-	\pre{recorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
+	\pre{esUnrecorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
 	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud v \implicaLuego res _i= (numeroFila(r_i,g),numeroColumna(r_i,g)}
 	
 	\aux{numeroFila}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
