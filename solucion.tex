@@ -181,7 +181,7 @@
 	}
 	
 	\pred{masCercanos}{i,j:Tiempo,v:Viaje}{
-		(\forall r:\ent)(0 \leq r < \longitud{v} \implicaLuego restaModulo(i,v[r]_0) \leq restaModulo(i,j))
+		(\forall r:\ent)(0 \leq r < \longitud{v} \implicaLuego restaModulo(i,v[r]_0) \geq restaModulo(i,j))
 		}
 	
 
