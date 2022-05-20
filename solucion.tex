@@ -97,7 +97,7 @@
 \subsection*{Ejercicio 3}
 \begin{proc}{enTerritorio}{\In v: Viaje, \In r: Dist, \Out res: $\bool$}{}
 	\pre{esUnViajeValido(v) \wedge r>0}
-	\post{res = True \leftrightarrow \dentroDeR(v,r)}
+	\post{res = \True \Iff dentroDeR(v,r)}
 
 	\pred{dentroDeR}{v: Viaje,r: Dist}{((\forall i:\ent) (\forall j:\ent) ((0 \leq i , j < \longitud v \wedge j \neq i) \implicaLuego \frac{(dist(v[j]_1,v[i]_[1])}{1000} < 2r)}
 
