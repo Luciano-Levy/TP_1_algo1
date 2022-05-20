@@ -81,16 +81,16 @@
 
 \begin{proc}{viajeValido}{\In v: Viaje, \Out res: $\bool$}{}
     \pre{\True}
-	\post{esUnViajeValido(v)}
+	\post{res = true \Iff esUnViajeValido(v)}
     
     
 \end{proc}
 
 
 \subsection*{Ejercicio 2}
-\begin{proc}{recorridoValido}{\In v: Recorrido, \out result: $\bool$}{}
-	\pre{esUnViajeValido(v)}
-	\post{result = \True \leftrightarrow (\forall i:\ent) ( 0 \leq i < \longitud v \yLuego gpsEnRango(i) }
+\begin{proc}{recorridoValido}{\In r: Recorrido, \out result: $\bool$}{}
+	\pre{\True}
+	\post{result = \True \Iff esUnRecorridoValido(r) }
 
 \end{proc}
 
@@ -187,7 +187,7 @@
 \newpage
 \subsection*{Ejercicio 10}
 \begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{Nombre}}{}
-	\pre{esUnrecorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
+	\pre{esUnRecorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
 	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud v \implicaLuego res _i= (numeroFila(r_i,g),numeroColumna(r_i,g)}
 	
 	\aux{numeroFila}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
