@@ -38,7 +38,7 @@
 \begin{description}
 \item aux dist(p1: GPS, p2: GPS) : Dist
 \item \pred{esUnViajeValido}{ v: Viaje}{
-		(\forall i : \ent)(0 \leq i < \longitud v \wedge 0 \leq j < \longitud{v}  \implicaLuego gpsEnRango (v[j]_1) \wedge tiempoEnRango(v[i]_{0}) \\ 
+		(\forall i : \ent)(0 \leq i < \longitud v \wedge 0 \leq j < \longitud{v}  \implicaLuego gpsEnRango (v[j]_1) \wedge tiempoEnRango(v[i]_{0})) \\ 
 		\wedge gpsCada20(v)
     }
 
@@ -121,10 +121,10 @@
 \subsection*{Ejercicio 5}
 \begin{proc}{distanciaTotal}{\In v: Viaje,\Out d: Dist}{}
 	\pre{esUnViajeValido(v)} 
-	\post{d =  \sum_{i=0}^{\longitud v - 1}distanciaSiguiente(v[i],v) }
+	\post{d \approx  \sum_{i=0}^{\longitud{v} - 1}distanciaSiguiente(v[i],v) }
 
-	\aux{distanciaSiguiente}{in elem: (Tiempo \times GPS),v: Viaje}{\ent \\}
-	{\sum_{i=0}^{\longitud v - 1}\IfThenElse {elem_0 = v[i]_0 - 20}{dist(elem_1,v[i]_1)}{0}}	
+	\aux{distanciaSiguiente}{elem: (Tiempo \times GPS),v: Viaje}{\ent \\}
+	{\sum_{i=0}^{\longitud v - 1}\IfThenElse {elem_0 = v[i]_0 - 20}{\frac{dist(elem_1,v[i]_1)}{1000}}{0}}	
 
 \end{proc}
 
