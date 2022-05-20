@@ -74,9 +74,8 @@
 \item DistanciaMaximaMetros = 444
     
 \end{description}
-
+\newpage
 \section{Problemas}
-% el * le saca el numero de seccion
 \subsection*{Ejercicio 1}
 
 \begin{proc}{viajeValido}{\In v: Viaje, \Out res: $\bool$}{}
@@ -117,7 +116,7 @@
 	}
 \end{proc}
 
-
+\newpage
 \subsection*{Ejercicio 5}
 \begin{proc}{distanciaTotal}{\In v: Viaje,\Out d: Dist}{}
 	\pre{esUnViajeValido(v)} 
@@ -135,16 +134,14 @@
 	\post{res = \True \leftrightarrow  \neg(\forall i : \ent)( 0 $\leq$ x $<$ \longitud v \implicaLuego distanciaSiguiente(v[i],v) < DistanciaMaximaMetros)}
 	
 \end{proc}
-\newpage
 \subsection*{Ejercicio 7}
 \begin{proc}{flota}{\In v: \TLista{Viaje},\In $t_{0}$: Tiempo, \In $t_{f}$: Tiempo,  \Out res: \ent}{}
-	\pre{(\forall i : \ent)(0 \leq i < \longitud v \implicaLuego esUnViajeValido(v))}
+	\pre{(\forall i : \ent)(0 \leq i < \longitud v \implicaLuego esUnViajeValido(v)) \wedge t_f \geq t_0}
 	\post{res = {\sum_{i=0}^{|v|-1}}  \IfThenElse {(viajeEnElTiempoPedido (v[i], $t_{0}$, $t_{f}$))}{1}{0}}	 
 	\pred {ViajeEnElTiempoPedido} {v: Viaje, $t_{0}$: Tiempo, $t_{f}$: Tiempo}{ 
 		(\exists i : \ent)(0 \leq i < \longitud v \yLuego $t_{0}$ \leq $v[i]_{0}$ \leq $t_{f}$) 
 		}
 \end{proc}
-
 \subsection*{Ejercicio 8}
 \begin{proc}{recorridoNoCubierto}{\In v: Viaje, \In r: Recorrido,\In u: Dist,\Out res: \TLista{GPS}}{}
 	\pre{esUnViajeValido(v) \wedge esUnRecorridoValido(r) \wedge u \geq 0} % HACER EL PREDICADO DE esUnRecorridoValido
@@ -156,6 +153,7 @@
 		}
 	
 \end{proc}
+\newpage
 \subsection*{Ejercicio 9}
 \begin{proc}{construirGrilla}{\In esq1: GPS, \In esq2: GPS, \In n:\ent, \In m:\ent, \out g: Grilla}{}
     \pre{n\geq 1 \wedge m \geq 1 \wedge gpsEnRango(esq1) \wedge gpsEnrango(esq2) \wedge ( (esq1_0 > esq2_0) \wedge (esq1_1 < esq2_1}
@@ -184,7 +182,6 @@
     {g_1_0 - g_0_0}
     
 \end{proc}
-\newpage
 \subsection*{Ejercicio 10}
 \begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{Nombre}}{}
 	\pre{esUnRecorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
@@ -198,7 +195,7 @@
 
 \end{proc}
 
-
+\newpage
 \subsection*{Ejercicio 11}
 \begin{proc}{cantidadDeSaltos}{\In g: Grilla,\In v: Viaje \Out res: \ent}{}
 	\pre{esUnViajeValido(v) \y enGrilla(g,v)}
@@ -247,27 +244,27 @@
 			\IfThenElse{a \geq b}{a-b}{b-a}
 			}
 \end{proc}
-
+\newpage
 \subsection*{Ejercicio 13}
 \begin{proc}{histograma}{\In xs: \TLista{Viaje},\In bins: \ent,out cuentas: \TLista{\ent},out limites: \TLista{\float}}{}
 	\pre{(\forall i: \ent)(0 \leq i < \longitud{xs} \implicaLuego esUnViajeValido(xs[i])) \wedge bins \geq 1}
 	\post{limitesValidos(limites,bins,xs) \y cuentasValidas(cuentas,limites,xs,bins)}
-	\pred{limitesValidos}{\In limites: \TLista{\float}, \In bins: \ent, \In xs: \TLista{Viaje}}{
+	\pred{limitesValidos}{limites: \TLista{\float}, bins: \ent, xs: \TLista{Viaje}}{
 		\longitud{limites} = bins + 1 \y \\
 		(\forall i: \ent)(0 \leq i < \longitud{limites}-1  \y  limites[i] > limites[i+1])  \y \\ 
 		(\exists k,j: \float)(velMayoryMenordeMaximas(k,j, limites, bins) \yLuego (\forall k: \ent)(0 \leq k < \longitud{limites}-1 \implicaLuego limites[i] = limites[i+1] - \frac{k - j}{bins})
 		}
-	\pred{cuentasValidas}{\In cuentas: \TLista{\ent},\In limites: \TLista{\float},\In xs: \TLista{Viaje},\In bins:\ent}{
+	\pred{cuentasValidas}{cuentas: \TLista{\ent},limites: \TLista{\float},xs: \TLista{Viaje},bins:\ent}{
 		\longitud{cuentas} = bins \y \\
 		(\forall i: \ent)(0 \leq i < \longitud{cuentas} %que es igual a \longitud{limites} -1 
 		\implicaLuego 
 		cuentas[i] = \sum_{j=0}^{\longitud{xs}-1} \IfThenElse{(\exists k: \ent)(esVelocidadMaxima(k,xs[j]) \yLuego limites[i] \leq  k \leq limites[i+1])}{1}{0})
 		}
-	\pred{esVelocidadMaxima}{\In i: \ent,\In v: Viaje}{
+	\pred{esVelocidadMaxima}{i: \ent, v: Viaje}{
 		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq \frac{dist(v[j]_1,distanciaSiguiente(v[j]_1,v))}{20})
 		}
-	\pred{velMayoryMenordeMaximas}{\In velMayorMaxima, \In velMenorMaxima,\In limites: \TLista{\float},\In bins: \ent}{
-		(\forall viajes:\ent)(\exists velMax: \ent)(0 \leq viajes < \longitud{xs} \implicaLuego esVelocidadMaxima(velMax,xs[j]) \yLuego
+	\pred{velMayoryMenordeMaximas}{velMayorMaxima,velMenorMaxima,limites: \TLista{\float},bins: \ent, xs: \TLista{Viaje}}{
+		(\forall viajes:\ent)(\exists velMax: \ent)(0 \leq viajes < \longitud{xs} \implicaLuego esVelocidadMaxima(velMax,xs[viajes]) \yLuego
 		(velMayorMaxima \geq velMax \wedge velMenorMaxima \leq velMax)
 	}
 \end{proc}
