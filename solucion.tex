@@ -37,21 +37,39 @@
 \section{Constantes}
 \begin{description}
 \item aux dist(p1: GPS, p2: GPS) : Dist
-\item \pred{esUnViajeValido}{\In v: Viaje}{
-		(\forall i : \ent)(0 \leq i < \longitud v \wedge 0 \leq j < \longitud{v}-1  \implicaLuego gpsEnRango (v[j]_1,v[j+1]_1)) \wedge tiempoEnRango(v[i]_{0})
+\item \pred{esUnViajeValido}{ v: Viaje}{
+		(\forall i : \ent)(0 \leq i < \longitud v \wedge 0 \leq j < \longitud{v}  \implicaLuego gpsEnRango (v[j]_1) \wedge tiempoEnRango(v[i]_{0}) \\ 
+		\wedge gpsCada20(v)
     }
 
-\item \pred{gpsEnRango}{\In g1: GPS, \In g2: GPS}{
-		( (-90.0 \leq g1_{0},g2_{0} \leq 90.0) \y (-180.0 \leq g1_{1},g2_{1} \leq 180.0) ) \y (  dist(g1,g2) \approx 20 )
-    }
+\item \pred{gpsCada20}{v : Viaje}{
+			(\forall i: \ent)(0 \leq i < \longitud{v}-1 \implicaLuego dist(v[i]_1,v[i+1]_1) \approx 20)
+	}
+	
+\item \pred{gpsEnRango}{gps: GPS}{
+		( (-90.0 \leq latitud(gps) \leq 90.0) \y (-180.0 \leq longitud(gps) \leq 180.0) ) 
+	}
     
-\item \pred{tiempoEnRango}{\In t: Viaje} {
-    t_{0} > 0
+\item \pred{tiempoEnRango}{\In t: Tiempo} {
+    	t_{0} > 0
     }
 
 \item \pred{esUnRecorridoValido}{\In r: Recorrido}{
 		(\forall j:\ent)(0 \leq j < \longitud{r}-1  \implicaLuego gpsEnRango (r[j],r[j+1]))
+	}
+
+\item \aux{latitud}{gps: GPS}{\float}{
+		gps_0
+	}
+
+\item \aux{longitud}{gps: GPS}{\float}{
+		gps_1
+	}
+\item \aux{absoluto}{x: \ent}{\ent}{
+			\IfThenElse{x < 0}{-x}{x}
 		}
+		%ojo que es con enteros
+
 
 \item DistanciaMaximaMetros = 444
     
