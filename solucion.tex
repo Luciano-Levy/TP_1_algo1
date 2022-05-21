@@ -155,15 +155,15 @@
 \end{proc}
 \newpage
 \subsection*{Ejercicio 9}
-\begin{proc}{construirGrilla}{\In esq1: GPS, \In esq2: GPS, \In n:\ent, \In m:\ent, \out g: Grilla}{}
+\begin{proc}{construirGrilla}{\In esq1: GPS, \In esq2: GPS, \In n:\ent, \In m:\ent, \Out g: Grilla}{}
     \pre{n\geq 1 \wedge m \geq 1 \wedge gpsEnRango(esq1) \wedge gpsEnrango(esq2) \wedge ( (esq1_0 > esq2_0) \wedge (esq1_1 < esq2_1}
     \post{ todasLasFilas (g) \wedge todasLasColumnas (g) \wedge enRangoDeGrilla (g, esq1, esq2) \wedge mismoTamañoDeRectángulos (g)}
     
-    \pred {todasLasFilas} {g:Grilla} {
+    \pred {todasLasFilas} {g:Grilla, n: \ent} {
     ((\forall i:\ent)(\exists j:\ent)(0 < i \leq n \implicaLuego g[j]_2_0 = i))
     }
     
-    \pred {todasLasColumnas} {g:Grilla} {
+    \pred {todasLasColumnas} {g:Grilla, m: \ent} {
     ((\forall i:\ent)(\exists j:\ent)(0 < i \leq m \implicaLuego g[j]_2_1 = i))
     }
     
@@ -184,31 +184,30 @@
 \end{proc}
 \subsection*{Ejercicio 10}
 \begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{Nombre}}{}
-	\pre{esUnRecorridoValido(r)} % si el recorrido no es valido se puede llegar a indefinir
-	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud v \implicaLuego res _i= (numeroFila(r_i,g),numeroColumna(r_i,g)}
+	\pre{esUnRecorridoValido(r), enGrilla(g,r)} % si el recorrido no es valido se puede llegar a indefinir
+	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud r \implicaLuego res[i]= (numeroFila(r[i],g),numeroColumna(r[i],g)}
 	
-	\aux{numeroFila}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
+	\aux{numeroFila}{in r: Recorrido ,g: Grilla}{\ent \\}
 	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_0 <= elem_0_0<=g[i]_1_0 }{i}{0}}	
 
-	\aux{numeroColumna}{in elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
+	\aux{numeroColumna}{in r: Recorrido, g: Grilla}{\ent \\}
 	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_1 <= elem_0_1<=g[i]_1_1 }{i}{0}}
+	
+	 \pred {enGrilla} {\In g: Grilla, \In r: Recorrido } {
+	(\forall i : \ent)(0 \leq i < |r|) ((numeroFila(r[i],g) \neq 0 \y  (numeroColumna(r[i],g) \neq 0)
+	}
 
 \end{proc}
 
 \newpage
 \subsection*{Ejercicio 11}
 \begin{proc}{cantidadDeSaltos}{\In g: Grilla,\In v: Viaje \Out res: \ent}{}
-	\pre{esUnViajeValido(v) \y enGrilla(g,v)}
+	\pre{esUnViajeValido(v) \y enGrilla(g,v[i]_1)}
 	\post{res = sumSaltos(g,v)}
-	 
-	 
-	 \pred {enGrilla} {\In g: Grilla, \In v: Viaje} {
-	(\forall i : \ent)(0 \leq i < |v|) ((numeroFila(v[i],g) \neq 0 \y  (numeroColumna(v[i],g) \neq 0)
-	}
 	
 	
 	\pred {esUnSalto} {\In g: Grilla, \In v: Viaje,\In i: \ent}{ 
-		(\exists j : \ent)(0 \leq j < |v|)  v[j]_{0} -  v[i]_{0} = 20 \yLuego ((numeroFila(v[j]_{1}) - numeroFila(v[i]_{1}) \geq 3) \vee (numeroColumna(v[j]_{1}) - numeroColumna(v[i]_{1}) \geq 3)) }	
+		(\exists j : \ent)(0 \leq j < |v|)  v[j]_{0} -  v[i]_{0} = 20 \yLuego (|(numeroFila(v[j]_{1}, g) - numeroFila(v[i]_{1}, g)| \geq 3) \vee (|numeroColumna(v[j]_{1}, g) - numeroColumna(v[i]_{1}, g)| \geq 3)) }	
 		
 	\aux {sumSaltos} {(in g: Grilla, in v: Viaje)} {\ent \\}
 	  {\sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}}	
@@ -218,14 +217,14 @@
 \subsection*{Ejercicio 12}
 \begin{proc}{corregirViaje}{\Inout v:Viaje,\In errores: \TLista{Tiempo}}{}
 	\pre{\longitud{v} > 5 \y esUnViajeValido(v) \y \longitud{errores} \leq 0.1 * \longitud{v} \y v = v_0 }
-	\post{(\forall i: \ent)(0 \leq i < \longitud{v} \implicaLuego v[i]_0 \in errores \y
+	\post{(\exists i: \ent)(0 \leq i < \longitud{v}) (v[i]_0 \in errores) \implicaLuego 
 	(\exists k,j :\ent)(0 \leq k,j < \longitud{v} \y k \neq j \yLuego
-	masCercanos(v[i]_0, v[k]_0,v) \y masCercanos(v[i]_0, v[j]_0,v) \yLuego
+	masCercanosCorrectos(v[i]_0, v[k]_0,v, errores) \y masCercanosCorrectos(v[i]_0, v[j]_0,v, errores) \yLuego
 	estaEnRectayPunto(v[i],v[k],v[j])))
 	}
 	
-	\pred{masCercanos}{i,j:Tiempo,v:Viaje}{
-		(\forall r:\ent)(0 \leq r < \longitud{v} \implicaLuego restaModulo(i,v[r]_0) \geq restaModulo(i,j))
+	\pred{masCercanosCorrectos}{i,j:Tiempo,v:Viaje, errores: \TLista{Tiempo}}{
+		(\forall r:\ent)(0 \leq r < \longitud{v} \implicaLuego v[r]_0 \notin errores \y restaModulo(i,v[r]_0) \geq restaModulo(i,j))
 		}
 	
 
