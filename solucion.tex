@@ -38,12 +38,12 @@
 \begin{description}
 \item aux dist(p1: GPS, p2: GPS) : Dist
 \item \pred{esUnViajeValido}{ v: Viaje}{
-		(\forall i : \ent)(0 \leq i < \longitud v \wedge 0 \leq j < \longitud{v}  \implicaLuego gpsEnRango (v[j]_1) \wedge tiempoEnRango(v[i]_{0})) \\ 
+		(\forall i : \ent)(0 \leq i < \longitud v \wedge 0 \leq j < \longitud{v}  \implicaLuego gpsEnRango (v[j]_1) \wedge tiempoEnRango($v[i]_{0}$)) \\ 
 		\wedge gpsCada20(v)
     }
 
 \item \pred{gpsCada20}{v : Viaje}{
-			(\forall i: \ent)(0 \leq i < \longitud{v}-1 \implicaLuego dist(v[i]_1,v[i+1]_1) \approx 20)
+			(\forall i: \ent)(0 \leq i < \longitud{v}-1 \implicaLuego dist($v[i]_1$,$v[i+1]_1$) \approx 20)
 	}
 	
 \item \pred{gpsEnRango}{gps: GPS}{
@@ -51,7 +51,7 @@
 	}
     
 \item \pred{tiempoEnRango}{\In t: Tiempo} {
-    	t_{0} > 0
+    	$t_{0}$ > 0
     }
 
 \item \pred{esUnRecorridoValido}{\In r: Recorrido}{
@@ -59,11 +59,11 @@
 	}
 
 \item \aux{latitud}{gps: GPS}{\float}{
-		gps_0
+		$gps_0$
 	}
 
 \item \aux{longitud}{gps: GPS}{\float}{
-		gps_1
+		$gps_1$
 	}
 \item \aux{absoluto}{x: \ent}{\ent}{
 			\IfThenElse{x < 0}{-x}{x}
@@ -172,13 +172,13 @@
     }
     
     \pred {mismoTamañoDeRectangulos} {g: Grilla} {
-    (\forall x:\ent) ¬(\exists y:\ent) (0 \leq x,y < |g| \implicaLuego ((base(g[x]) \neq base(g[y])) \wedge (altura(g[x]) \neq altura(g[y])))
+    (\forall x:\ent)\neg(\exists y:\ent) (0 \leq x,y < |g| \implicaLuego ((base(g[x]) \neq base(g[y])) \wedge (altura(g[x]) \neq altura(g[y])))
     }
     
-    \aux {base}{in g:Grilla}{\float\\}
+    \aux {base}{g:Grilla}{\float\\}
     {g_1_1 - g_0_1}
     
-    \aux {altura}{in g:Grilla}{\float\\}
+    \aux {altura}{g:Grilla}{\float\\}
     {g_1_0 - g_0_0}
     
 \end{proc}
@@ -187,10 +187,10 @@
 	\pre{esUnRecorridoValido(r), enGrilla(g,r)} % si el recorrido no es valido se puede llegar a indefinir
 	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud r \implicaLuego res[i]= (numeroFila(r[i],g),numeroColumna(r[i],g)}
 	
-	\aux{numeroFila}{in r: Recorrido ,g: Grilla}{\ent \\}
+	\aux{numeroFila}{r: Recorrido ,g: Grilla}{\ent \\}
 	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_0 <= elem_0_0<=g[i]_1_0 }{i}{0}}	
 
-	\aux{numeroColumna}{in r: Recorrido, g: Grilla}{\ent \\}
+	\aux{numeroColumna}{r: Recorrido, g: Grilla}{\ent \\}
 	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_1 <= elem_0_1<=g[i]_1_1 }{i}{0}}
 	
 	 \pred {enGrilla} {\In g: Grilla, \In r: Recorrido } {
@@ -207,9 +207,9 @@
 	
 	
 	\pred {esUnSalto} {\In g: Grilla, \In v: Viaje,\In i: \ent}{ 
-		(\exists j : \ent)(0 \leq j < |v|)  v[j]_{0} -  v[i]_{0} = 20 \yLuego (|(numeroFila(v[j]_{1}, g) - numeroFila(v[i]_{1}, g)| \geq 3) \vee (|numeroColumna(v[j]_{1}, g) - numeroColumna(v[i]_{1}, g)| \geq 3)) }	
+		(\exists j : \ent)(0 \leq j < |v| \wedge  v[j]_{0} -  v[i]_{0} = 20) \yLuego (|(numeroFila(v[j]_{1}, g) - numeroFila(v[i]_{1}, g)| \geq 3) \vee (|numeroColumna(v[j]_{1}, g) - numeroColumna(v[i]_{1}, g)| \geq 3)) }	
 		
-	\aux {sumSaltos} {(in g: Grilla, in v: Viaje)} {\ent \\}
+	\aux {sumSaltos} {g: Grilla, v: Viaje} {\ent \\}
 	  {\sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}}	
 	\end{proc}	
 	
