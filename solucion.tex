@@ -189,19 +189,18 @@
 	mismoNombre(g, res[i], res[y])}
 	
      \pred {mismoNombre}{g: Grilla, resN: Nombre, rg: Gps}{
-        (\exists k: \ent)(0 \leq i < \longitud{g}) \yLuego estaEnGrillaGps(g , rg) \yLuego g[k]_2 = resN
+        (\exists k: \ent)(0 \leq k < \longitud{g}) \yLuego estaEnGrillaGps(g , rg) \yLuego g[k]_2 = resN
     }
     \pred {estanEnGrillaGps}{g :Grilla, gps : Gps}{
-        (\exists k: \ent)(0 \leq i < \longitud{g}) \yLuego (lat(g[k]_0) \leq gps_0 \leq (lat(g[k]_1)) \y
-        (long(g[k]_0) \leq gps_1 \leq (long(g[k]_1))
+        (\exists k: \ent)(0 \leq k < \longitud{g}) \yLuego (lat(g[k]_0) \leq lat(gps) \leq (lat(g[k]_1)) \y
+        (long(g[k]_0) \leq long(gps) \leq (long(g[k]_1))
     }
     \pred {estaEnGrillaRecorrido}{g: Grilla, r : Recorrido}{
-        ((\forall i:\ent)(0 \leq j < |r| \implicaLuego (estanEnGrillaGps(g, r[i]))
+        ((\forall j:\ent)(0 \leq j < |r| \implicaLuego (estanEnGrillaGps(g, r[i]))
     }
     
         
 \end{proc}
-
 \newpage
 \subsection*{Ejercicio 11}
 \begin{proc}{cantidadDeSaltos}{\In g: Grilla,\In v: Viaje \Out res: \ent}{}
