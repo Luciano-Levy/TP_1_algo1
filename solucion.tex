@@ -234,12 +234,11 @@
 		}
 
 	\pred{estaEnRectaLat}{g,p1,p2: (Tiempo X Gps)}{
-	    g_0_0 = \frac{(p2_0_0-p1_0_0)(g_2-p1_2)}{p2_2-p1_2} + p1_0_0
+	    latitud(g) = \frac{(latitud(p2)-latitud(p1))(g_2-p1_2)}{p2_2-p1_2} + latitud(p1)
 		}
 	\pred{estaEnRectaLong}{g,p1,p2: GPS}{
-        g_0_1 = \frac{(p2_0_1-p1_0_1)(g_2-p1_2)}{p2_2-p1_2} + p1_0_1
+        longitud(g) = \frac{(longitud(p2)-longitud(p1))(g_2-p1_2)}{p2_2-p1_2} + longitud(p1)
 		}
-
 		\aux{restaModulo}{a,b: \ent}{\ent \\}{
 			\IfThenElse{a \geq b}{a-b}{b-a}
 			}
