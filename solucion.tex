@@ -157,14 +157,14 @@
 \subsection*{Ejercicio 9}
 \begin{proc}{construirGrilla}{\In esq1: GPS, \In esq2: GPS, \In n:\ent, \In m:\ent, \Out g: Grilla}{}
     \pre{n\geq 1 \wedge m \geq 1 \wedge gpsEnRango(esq1) \wedge gpsEnrango(esq2) \wedge ( (esq1_0 > esq2_0) \wedge (esq1_1 < esq2_1}
-    \post{ todasLasFilas (g) \wedge todasLasColumnas (g) \wedge enRangoDeGrilla (g, esq1, esq2) \wedge mismoTamañoDeRectángulos (g)}
+    \post{ todasLasFilas (g,n) \wedge todasLasColumnas (g,m) \wedge enRangoDeGrilla (g, esq1, esq2) \wedge mismoTamañoDeRectángulos (g)}
     
     \pred {todasLasFilas} {g:Grilla, n: \ent} {
-    ((\forall i:\ent)(\exists j:\ent)(0 < i \leq n \implicaLuego g[j]_2_0 = i))
+    ((\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g) (0 < i \leq n \implicaLuego g[j]_2_0 = i))
     }
     
     \pred {todasLasColumnas} {g:Grilla, m: \ent} {
-    ((\forall i:\ent)(\exists j:\ent)(0 < i \leq m \implicaLuego g[j]_2_1 = i))
+    ((\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g)(0 < i \leq m \implicaLuego g[j]_2_1 = i))
     }
     
     \pred {enRangoDeGrilla} {g:Grilla, esq1: GPS, esq2: GPS}{
@@ -184,8 +184,8 @@
 \end{proc}
 \subsection*{Ejercicio 10}
 \begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{Nombre}}{}
-	\pre{esUnRecorridoValido(r), enGrilla(g,r)} % si el recorrido no es valido se puede llegar a indefinir
-	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud r \implicaLuego res[i]= (numeroFila(r[i],g),numeroColumna(r[i],g)}
+	\pre{esUnRecorridoValido(r) \y enGrilla(g,r)} % si el recorrido no es valido se puede llegar a indefinir
+	\post{(\forall i : \ent)( 0 $\leq$ i $<$ \longitud {res} \implicaLuego res[i]= (numeroFila(r[i],g),numeroColumna(r[i],g)}
 	
 	\aux{numeroFila}{r: Recorrido ,g: Grilla}{\ent \\}
 	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_0 <= elem_0_0<=g[i]_1_0 }{i}{0}}	
@@ -193,7 +193,7 @@
 	\aux{numeroColumna}{r: Recorrido, g: Grilla}{\ent \\}
 	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_1 <= elem_0_1<=g[i]_1_1 }{i}{0}}
 	
-	 \pred {enGrilla} {\In g: Grilla, \In r: Recorrido } {
+	 \pred {enGrilla} {g: Grilla, r: Recorrido } {
 	(\forall i : \ent)(0 \leq i < |r|) ((numeroFila(r[i],g) \neq 0 \y  (numeroColumna(r[i],g) \neq 0)
 	}
 
@@ -207,7 +207,7 @@
 	
 	
 	\pred {esUnSalto} {\In g: Grilla, \In v: Viaje,\In i: \ent}{ 
-		(\exists j : \ent)(0 \leq j < |v| \wedge  v[j]_{0} -  v[i]_{0} = 20) \yLuego (|(numeroFila(v[j]_{1}, g) - numeroFila(v[i]_{1}, g)| \geq 3) \vee (|numeroColumna(v[j]_{1}, g) - numeroColumna(v[i]_{1}, g)| \geq 3)) }	
+		(\exists j : \ent)(0 \leq j < |v| \wedge  v[j]_{0} -  v[i]_{0} = 20) \yLuego absoluto ((numeroFila(v[j]_{1}, g) - numeroFila(v[i]_{1}, g) \geq 3)) \vee absoluto ((numeroColumna(v[j]_{1}, g) - numeroColumna(v[i]_{1}, g)) \geq 3)) }	
 		
 	\aux {sumSaltos} {g: Grilla, v: Viaje} {\ent \\}
 	  {\sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}}	
@@ -218,8 +218,8 @@
 \begin{proc}{corregirViaje}{\Inout v:Viaje,\In errores: \TLista{Tiempo}}{}
 	\pre{\longitud{v} > 5 \y esUnViajeValido(v) \y \longitud{errores} \leq 0.1 * \longitud{v} \y v = v_0 }
 	\post{(\exists i: \ent)(0 \leq i < \longitud{v}) (v[i]_0 \in errores) \implicaLuego 
-	(\exists k,j :\ent)(0 \leq k,j < \longitud{v} \y k \neq j \yLuego
-	masCercanosCorrectos(v[i]_0, v[k]_0,v, errores) \y masCercanosCorrectos(v[i]_0, v[j]_0,v, errores) \yLuego
+	(\exists k,j :\ent)(0 \leq k,j < \longitud{v} \y k \neq j \yLuego \\
+	masCercanosCorrectos(v[i]_0, v[k]_0,v, errores) \y masCercanosCorrectos(v[i]_0, v[j]_0,v, errores) \yLuego \\
 	estaEnRectayPunto(v[i],v[k],v[j])))
 	}
 	
