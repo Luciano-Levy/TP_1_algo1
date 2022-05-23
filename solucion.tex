@@ -234,10 +234,10 @@
 		}
 
 	\pred{estaEnRectaLat}{g,p1,p2: (Tiempo X GPS)}{
-	    latitud(g) = \frac{(latitud(p2)-latitud(p1))(g_0-p1_0)}{p2_0-p1_0} + latitud(p1)
+	    latitud(g_1) = \frac{(latitud(p2_1)-latitud(p1_1))(g_0-p1_0)}{p2_0-p1_0} + latitud(p1_1)
 		}
 	\pred{estaEnRectaLong}{g,p1,p2: (Tiempo X GPS)}{
-        longitud(g) = \frac{(longitud(p2)-longitud(p1))(g_0-p1_0)}{p2_0-p1_0} + longitud(p1)
+        longitud(g_1) = \frac{(longitud(p2_1)-longitud(p1_1))(g_0-p1_0)}{p2_0-p1_0} + longitud(p1_1)
 		}
 		\aux{restaModulo}{a,b: \ent}{\ent \\}{
 			\IfThenElse{a \geq b}{a-b}{b-a}
