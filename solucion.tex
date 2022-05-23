@@ -221,7 +221,7 @@
 	\post{(\exists i: \ent)(0 \leq i < \longitud{v}) (v[i]_0 \in errores) \implicaLuego 
 	(\exists k,j :\ent)(0 \leq k,j < \longitud{v} \y k \neq j \yLuego \\
 	masCercanosCorrectos(v[i]_0, v[k]_0,v, errores) \y masCercanosCorrectos(v[i]_0, v[j]_0,v, errores) \yLuego \\
-	estaEnRectayPunto([(v[i]_0, puntoCorregido(v[k],v[j])],v[k],v[j]))) \implicaLuego v[i]_1 = puntoCorregido(v[k],v[j])
+	estaEnRectayPunto([v[i]_0, puntoCorregido(v[k],v[j])],v[k],v[j]) \implicaLuego v[i]_1 = puntoCorregido(v[k],v[j])
 	}
 	
 	\pred{masCercanosCorrectos}{i,j:Tiempo,v:Viaje, errores: \TLista{Tiempo}}{
