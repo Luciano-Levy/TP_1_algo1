@@ -229,15 +229,15 @@
 		}
 	
 
-	\pred{estaEnRectayPunto}{g,p1,p2: (Tiempo X Gps)}{
+	\pred{estaEnRectayPunto}{g,p1,p2: (Tiempo X GPS)}{
 		estaEnRectaLat(g,p1,p2) \y estaEnRectaLong(g,p1,p2)
 		}
 
-	\pred{estaEnRectaLat}{g,p1,p2: (Tiempo X Gps)}{
-	    latitud(g) = \frac{(latitud(p2)-latitud(p1))(g_2-p1_2)}{p2_2-p1_2} + latitud(p1)
+	\pred{estaEnRectaLat}{g,p1,p2: (Tiempo X GPS)}{
+	    latitud(g) = \frac{(latitud(p2)-latitud(p1))(g_0-p1_0)}{p2_0-p1_0} + latitud(p1)
 		}
-	\pred{estaEnRectaLong}{g,p1,p2: GPS}{
-        longitud(g) = \frac{(longitud(p2)-longitud(p1))(g_2-p1_2)}{p2_2-p1_2} + longitud(p1)
+	\pred{estaEnRectaLong}{g,p1,p2: (Tiempo X GPS)}{
+        longitud(g) = \frac{(longitud(p2)-longitud(p1))(g_0-p1_0)}{p2_0-p1_0} + longitud(p1)
 		}
 		\aux{restaModulo}{a,b: \ent}{\ent \\}{
 			\IfThenElse{a \geq b}{a-b}{b-a}
