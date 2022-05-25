@@ -69,8 +69,13 @@
 			\IfThenElse{x < 0}{-x}{x}
 		}
 		%ojo que es con enteros
+\item \aux{nombre}{g: Grilla}{\ent \times \ent}{
+			g_2
+			}
 
-
+\item \aux{Gps}{v:viaje}{GPS}{
+				v_1
+				} 
 \item DistanciaMaximaMetros = 444
     
 \end{description}
@@ -98,7 +103,7 @@
 	\pre{esUnViajeValido(v) \wedge r>0}
 	\post{res = \True \Iff dentroDeR(v,r)}
 
-	\pred{dentroDeR}{v: Viaje,r: Dist}{((\forall i:\ent) (\forall j:\ent) ((0 \leq i , j < \longitud v \wedge j \neq i) \implicaLuego \frac{(dist(v[j]_1,v[i]_[1])}{1000} < 2r)}
+	\pred{dentroDeR}{v: Viaje,r: Dist}{((\forall i:\ent) (\forall j:\ent) ((0 \leq i , j < \longitud v \wedge j \neq i) \implicaLuego \frac{(dist(Gps(v[j]),Gps(v[i]))}{1000} < 2r)}
 
 \end{proc}
 
@@ -149,7 +154,7 @@
 	(\exists j: \ent)(0 \leq j < \longitud {res} \yLuego r[j] = res[i]))}
 
 	\pred {cubierto} {e: GPS,v: Viaje,u: \ent}{
-		(\exists i: \ent)(0 \leq i < \longitud v \yLuego dist(v[i]_1,e) \leq 1000 \times u)
+		(\exists i: \ent)(0 \leq i < \longitud v \yLuego dist(Gps(v[i]),e) \leq 1000 \times u)
 		}
 	
 \end{proc}
@@ -160,11 +165,11 @@
     \post{ todasLasFilas (g,n) \wedge todasLasColumnas (g,m) \wedge enRangoDeGrilla (g, esq1, esq2) \wedge mismoTamañoDeRectángulos (g)}
     
     \pred {todasLasFilas} {g:Grilla, n: \ent} {
-    ((\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g) (0 < i \leq n \implicaLuego g[j]_2_0 = i))
+		((\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g) (0 < i \leq n \implicaLuego nombre(g[j])_0 = i))
     }
     
     \pred {todasLasColumnas} {g:Grilla, m: \ent} {
-    ((\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g)(0 < i \leq m \implicaLuego g[j]_2_1 = i))
+		((\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g)(0 < i \leq m \implicaLuego nombre(g[j])_1 = i))
     }
     
     \pred {enRangoDeGrilla} {g:Grilla, esq1: GPS, esq2: GPS}{
@@ -189,14 +194,14 @@
 	mismoNombre(g, res[i], res[y])}
 	
      \pred {mismoNombre}{g: Grilla, resN: Nombre, rg: Gps}{
-        (\exists k: \ent)(0 \leq k < \longitud{g}) \yLuego estaEnGrillaGps(g , rg) \yLuego g[k]_2 = resN
+		 (\exists k: \ent)(0 \leq k < \longitud{g}) \yLuego estaEnGrillaGps(g , rg, k) \yLuego nombre(g[k]) = resN
     }
-    \pred {estanEnGrillaGps}{g :Grilla, gps : Gps}{
-        (\exists k: \ent)(0 \leq k < \longitud{g}) \yLuego (lat(g[k]_0) \leq lat(gps) \leq (lat(g[k]_1)) \y
-        (long(g[k]_0) \leq long(gps) \leq (long(g[k]_1))
+    \pred {estanEnGrillaGps}{g :Grilla, gps : GPS,k: \ent}{
+		latitud(g[k]_0) \leq latitud(gps) \leq latitud(g[k]_1) \y \\
+        longitud(g[k]_0) \leq longitud(gps) \leq longitud(g[k]_1)
     }
     \pred {estaEnGrillaRecorrido}{g: Grilla, r : Recorrido}{
-        ((\forall j:\ent)(0 \leq j < |r| \implicaLuego (estanEnGrillaGps(g, r[i]))
+		(\forall j:\ent)(\exists k:\ent)(0 \leq j < \longitud{r} \wedge 0 \leq k < \longitud{q}  \implicaLuego \\ estanEnGrillaGps(g, r[j]))
     }
     
         
@@ -204,24 +209,34 @@
 \newpage
 \subsection*{Ejercicio 11}
 \begin{proc}{cantidadDeSaltos}{\In g: Grilla,\In v: Viaje \Out res: \ent}{}
-	\pre{esUnViajeValido(v) \y enGrilla(g,v[i]_1)}
+	\pre{esUnViajeValido(v) \y estanEnGrillaViaje}
 	\post{res = sumSaltos(g,v)}
 	
 	
-	\pred {esUnSalto} {\In g: Grilla, \In v: Viaje,\In i: \ent}{ 
-		(\exists j : \ent)(0 \leq j < |v| \wedge  v[j]_{0} -  v[i]_{0} = 20) \yLuego absoluto ((numeroFila(v[j]_{1}, g) - numeroFila(v[i]_{1}, g) \geq 3)) \vee absoluto ((numeroColumna(v[j]_{1}, g) - numeroColumna(v[i]_{1}, g)) \geq 3)) }	
+	\pred {esUnSalto} {g: Grilla,v: Viaje,i: \ent}{ 
+		(\exists j : \ent)(0 \leq j < |v| \wedge  v[j]_{0} -  v[i]_{0} = 20) \yLuego \\
+		absoluto((numeroFila(v[j]_{1}, g) - numeroFila(v[i]_{1}, g) \geq 3)) \vee  
+		\\ absoluto((numeroColumna(v[j]_{1}, g) - numeroColumna(v[i]_{1}, g)) \geq 3)) }	
 		
 	\aux {sumSaltos} {g: Grilla, v: Viaje} {\ent \\}
 	  {\sum_{i=0}^{\longitud v - 1} \IfThenElse {esUnSalto(g,v,i)}{1}{0}}	
-	\end{proc}	
+	\aux{numeroDeFila}{elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
+	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_0 <= elem_0_0<=g[i]_1_0 }{i}{0}}	
+
+	\aux{numeroDeColumna}{elem: (Tiempo \times GPS),g: Grilla}{\ent \\}
+	{\sum_{i=0}^{\longitud g - 1}\IfThenElse {g[i]_0_1 <= elem_0_1<=g[i]_1_1 }{i}{0}}
 	
+    \pred {estaEnGrillaViaje}{g: Grilla, v : Viaje}{
+		(\forall j:\ent)(\exists k:\ent)(0 \leq j < \longitud{v} \wedge 0 \leq k < \longitud{q}  \implicaLuego \\ estanEnGrillaGps(g, Gps(v[j]))
+    }
+	\end{proc}	
 \subsection*{Ejercicio 12}
 \begin{proc}{corregirViaje}{\Inout v:Viaje,\In errores: \TLista{Tiempo}}{}
 	\pre{\longitud{v} > 5 \y esUnViajeValido(v) \y \longitud{errores} \leq 0.1 * \longitud{v} \y v = v_0 }
 	\post{(\exists i: \ent)(0 \leq i < \longitud{v}) (v[i]_0 \in errores) \implicaLuego 
 	(\exists k,j :\ent)(0 \leq k,j < \longitud{v} \y k \neq j \yLuego \\
 	masCercanosCorrectos(v[i]_0, v[k]_0,v, errores) \y masCercanosCorrectos(v[i]_0, v[j]_0,v, errores) \yLuego \\
-	estaEnRectayPunto([v[i]_0, puntoCorregido(v[k],v[j])],v[k],v[j]) \implicaLuego v[i]_1 = puntoCorregido(v[k],v[j])
+	estaEnRectayPunto([v[i]_0, puntoCorregido(v[k],v[j])],v[k],v[j]) \implicaLuego Gps(v[i]) = puntoCorregido(v[k],v[j])
 	}
 	
 	\pred{masCercanosCorrectos}{i,j:Tiempo,v:Viaje, errores: \TLista{Tiempo}}{
@@ -265,7 +280,7 @@
 		cuentas[i] = \sum_{j=0}^{\longitud{xs}-1} \IfThenElse{(\exists k: \ent)(esVelocidadMaxima(k,xs[j]) \yLuego limites[i] \leq  k \leq limites[i+1])}{1}{0})
 		}
 	\pred{esVelocidadMaxima}{i: \ent, v: Viaje}{
-		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq \frac{dist(v[j]_1,distanciaSiguiente(v[j]_1,v))}{20})
+		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq \frac{dist(Gps(v[j]),distanciaSiguiente(Gps(v[j]),v))}{20})
 		}
 	\pred{velMayoryMenordeMaximas}{velMayorMaxima,velMenorMaxima,limites: \TLista{\float},bins: \ent, xs: \TLista{Viaje}}{
 		(\forall viajes:\ent)(\exists velMax: \ent)(0 \leq viajes < \longitud{xs} \implicaLuego esVelocidadMaxima(velMax,xs[viajes]) \yLuego
