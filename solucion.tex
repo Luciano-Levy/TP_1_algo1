@@ -38,7 +38,7 @@
 \begin{description}
 \item aux dist(p1: GPS, p2: GPS) : Dist
 \item \pred{esUnViajeValido}{ v: Viaje}{
-		(\forall i : \ent)(0 \leq i < \longitud v \wedge 0 \leq j < \longitud{v}  \implicaLuego gpsEnRango (v[j]_1) \wedge tiempoEnRango($v[i]_{0}$)) \\ 
+		(\forall i : \ent)(0 \leq i < \longitud v  \implicaLuego gpsEnRango (v[j]_1) \wedge tiempoEnRango($v[i]_{0}$)) \\ 
 		\wedge gpsCada20(v)
     }
 
@@ -188,7 +188,7 @@
 \subsection*{Ejercicio 10}
 \begin{proc}{regiones}{\In r: Recorrido,\In g: Grilla,\Out res: \TLista{Nombre}}{}
 	\pre{esUnRecorridoValido(r) \y estaEnGrillaRecorrido(g,r)} % si el recorrido no es valido se puede llegar a indefinir
-	\post{(\forall i : \ent)( 0 \leq i < \longitud {res} \implicaLuego (\exists y : \ent)(0 \leq y < \longitud {r}) \yLuego 
+	\post{\longitud{r} = \longitud{res} \yLuego (\forall i : \ent)( 0 \leq i < \longitud {res} \implicaLuego (\exists y : \ent)(0 \leq y < \longitud {r}) \yLuego 
 	mismoNombre(g, res[i], res[y])}
 	
      \pred {mismoNombre}{g: Grilla, resN: Nombre, rg: GPS}{
@@ -228,13 +228,15 @@
 		(\forall j:\ent)(\exists k:\ent)(0 \leq j < \longitud{v} \wedge 0 \leq k < \longitud{q}  \implicaLuego \\ estanEnGrillaGps(g, v[j]_1)
     }
 	\end{proc}	
+\newpage	
+	
 \subsection*{Ejercicio 12}
 \begin{proc}{corregirViaje}{\Inout v:Viaje,\In errores: \TLista{Tiempo}}{}
 	\pre{\longitud{v} > 5 \y esUnViajeValido(v) \y \longitud{errores} \leq 0.1 * \longitud{v} \y v = v_0 }
 	\post{(\exists i: \ent)(0 \leq i < \longitud{v}) (v[i]_0 \in errores) \implicaLuego 
 	(\exists k,j :\ent)(0 \leq k,j < \longitud{v} \y k \neq j \yLuego \\
 	masCercanosCorrectos(v[i]_0, v[k]_0,v, errores) \y masCercanosCorrectos(v[i]_0, v[j]_0,v, errores) \yLuego \\
-	estaEnRectayPunto([v[i]_0, puntoCorregido(v[k],v[j])],v[k],v[j]) \implicaLuego v[i]_1 = puntoCorregido(v[k],v[j]))
+	estaEnRectayPunto((v[i]_0, puntoCorregido(v[k],v[j])),v[k],v[j]) \implicaLuego v[i]_1 = puntoCorregido(v[k],v[j])
 	}
 	
 	\pred{masCercanosCorrectos}{i,j:Tiempo,v:Viaje, errores: \TLista{Tiempo}}{
