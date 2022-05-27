@@ -164,13 +164,14 @@
     \pre{n\geq 1 \wedge m \geq 1 \wedge gpsEnRango(esq1) \wedge gpsEnrango(esq2) \wedge ( (esq1_0 > esq2_0) \wedge (esq1_1 < esq2_1}
     \post{ todasLasFilas (g,n) \wedge todasLasColumnas (g,m) \wedge enRangoDeGrilla (g, esq1, esq2) \wedge mismoTamañoDeRectángulos (g)}
     
-    \pred {todasLasFilas} {g:Grilla, n: \ent} {
-		((\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g) (0 < i \leq n \implicaLuego nombre(g[j])_0 = i))
+    \pred {filasEnRango} {g:Grilla, n: \ent} {
+		((\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g) (0 < i \leq n \implicaLuego noEstaVacia(g,m,i)
     }
-    
-    \pred {todasLasColumnas} {g:Grilla, m: \ent} {
-		((\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g)(0 < i \leq m \implicaLuego nombre(g[j])_1 = i))
-    }
+		
+    \pred{columnasEnRango}{g: Grilla, m :\ent, i:\ent}{
+		((\forall j:\ent)(\exists k:\ent)(0 \leq  < j \leq m)(0 \leq k < \longitud g \implicaLuego nombre(g[j]_1 )= k \wedge nombre(g[j])_0 = i)
+
+    }	
     
     \pred {enRangoDeGrilla} {g:Grilla, esq1: GPS, esq2: GPS}{
 		(\forall i:\ent)(\forall j: \ent)(0 \leq i < |g| \wedge 0 \leq j \leq 1 \implicaLuego (latitud(esq2) \leq latitud(g[i]_j) \leq latitud(esq1)) \wedge (longitud(esq2) \leq longitud(g[i]_j) \leq longitud(esq1))
