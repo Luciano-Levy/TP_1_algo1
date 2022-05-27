@@ -162,11 +162,11 @@
     \post{ filasEnRango(g, n, m) \wedge enRangoDeGrilla (g, esq1, esq2) \\ \wedge mismoTamañoDeRectángulos (g)}
     
     \pred {filasEnRango} {g:Grilla, n: \ent, m :\ent} {
-		(\forall i:\ent)(0 < i \leq n \implicaLuego columnasEnRango(g,m,i)
+		(\forall i:\ent)(0 < i \leq n \implicaLuego columnasEnRango(g,m,i))
     }
 		
     \pred{columnasEnRango}{g: Grilla, m :\ent, i:\ent}{
-		(\forall j:\ent)(\exists k:\ent)(0  < j \leq m)(0 \leq k < \longitud g \implicaLuego nombre(g[j]_1 )= k \wedge nombre(g[j])_0 = i)
+		(\forall j:\ent)(\exists k:\ent)(0  < j \leq m)(0 \leq k < \longitud g \implicaLuego nombre(g[k]_1 )= j \wedge nombre(g[k])_0 = i)
 
     }		
     
