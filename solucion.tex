@@ -165,11 +165,11 @@
     \post{ todasLasFilas (g,n) \wedge todasLasColumnas (g,m) \wedge enRangoDeGrilla (g, esq1, esq2) \wedge mismoTamañoDeRectángulos (g)}
     
     \pred {filasEnRango} {g:Grilla, n: \ent} {
-		((\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g) (0 < i \leq n \implicaLuego noEstaVacia(g,m,i)
+		(\forall i:\ent)(\exists j:\ent)(0 \leq j < \longitud g) (0 < i \leq n \implicaLuego noEstaVacia(g,m,i)
     }
 		
     \pred{columnasEnRango}{g: Grilla, m :\ent, i:\ent}{
-		((\forall j:\ent)(\exists k:\ent)(0 \leq  < j \leq m)(0 \leq k < \longitud g \implicaLuego nombre(g[j]_1 )= k \wedge nombre(g[j])_0 = i)
+		(\forall j:\ent)(\exists k:\ent)(0 \leq  < j \leq m)(0 \leq k < \longitud g \implicaLuego nombre(g[j]_1 )= k \wedge nombre(g[j])_0 = i)
 
     }	
     
@@ -181,10 +181,10 @@
     (\forall x:\ent)\neg(\exists y:\ent) (0 \leq x,y < |g| \implicaLuego ((base(g[x]) \neq base(g[y])) \wedge (altura(g[x]) \neq altura(g[y])))
     }
     
-    \aux {base}{g:Grilla}{\float\\}
+    \aux {base}{g:(Gps x Gps x Nombre)}{\float\\}
 	{longitud(g_1) - longitud(g_0)}
     
-    \aux {altura}{g:Grilla}{\float\\}
+    \aux {altura}{g:(Gps x Gps x Nombre)}{\float\\}
 	{latitud(g_1) - latitud(g_0)}
     
 \end{proc}
