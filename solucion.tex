@@ -173,7 +173,7 @@
     }
     
     \pred {enRangoDeGrilla} {g:Grilla, esq1: GPS, esq2: GPS}{
-    ((\forall i:\ent)(0 \leq j < |g| \implicaLuego (esq2_0 \leq g[2]_j_0 \leq esq1_0) \wedge (esq2_1 \leq g[2]_j_1 \leq esq1_1)))
+		(\forall i:\ent)(\forall j: \ent)(0 \leq i < |g| \wedge 0 \leq j \leq 1 \implicaLuego (latitud(esq2) \leq latitud(g[i]_j) \leq latitud(esq1)) \wedge (longitud(esq2) \leq longitud(g[i]_j) \leq longitud(esq1))
     }
     
     \pred {mismoTamañoDeRectangulos} {g: Grilla} {
@@ -181,10 +181,10 @@
     }
     
     \aux {base}{g:Grilla}{\float\\}
-    {g_1_1 - g_0_1}
+	{longitud(g_1) - longitud(g_0)}
     
     \aux {altura}{g:Grilla}{\float\\}
-    {g_1_0 - g_0_0}
+	{latitud(g_1) - latitud(g_0)}
     
 \end{proc}
 \subsection*{Ejercicio 10}
