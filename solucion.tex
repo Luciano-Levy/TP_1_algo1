@@ -8,7 +8,7 @@
 \begin{document}
 
 \titulo{TP de Especificación}
-\fecha{29 de Abril de 2022}
+\fecha{27 de Mayo de 2022}
 \materia{Algoritmos y Estructuras de Datos I}
 \grupo{Grupo 2}
 
@@ -166,7 +166,7 @@
     }
 		
     \pred{columnasEnRango}{g: Grilla, m :\ent, i:\ent}{
-		(\forall j:\ent)(\exists k:\ent)(0  < j \leq m)(0 \leq k < \longitud g \implicaLuego nombre(g[k]_1 )= j \wedge nombre(g[k])_0 = i)
+		(\forall j:\ent)(\exists k:\ent)(0  < j \leq m)(0 \leq k < \longitud g \implicaLuego nombre(g[k]_1 )= j \wedge nombre(g[k]_0) = i)
 
     }		
     
@@ -207,7 +207,7 @@
 \newpage
 \subsection*{Ejercicio 11}
 \begin{proc}{cantidadDeSaltos}{\In g: Grilla,\In v: Viaje \Out res: \ent}{}
-	\pre{esUnViajeValido(v) \y estanEnGrillaViaje}
+	\pre{esUnViajeValido(v) \y estaEnGrillaViaje(g,v)}
 	\post{res = sumSaltos(g,v)}
 	
 	
@@ -282,8 +282,8 @@
 	\pred{esVelocidadMaxima}{i: \ent, v: Viaje}{
 		(\forall j: \ent)(0 \leq j < \longitud v \implicaLuego i \geq \frac{dist(v[j]_1,distanciaSiguiente(v[j]_1,v))}{20})
 		}
-	\pred{velMayoryMenordeMaximas}{velMayorMaxima,velMenorMaxima,limites: \TLista{\float},bins: \ent, xs: \TLista{Viaje}}{
-		(\forall viajes:\ent)(\exists velMax: \ent)(0 \leq viajes < \longitud{xs} \implicaLuego esVelocidadMaxima(velMax,xs[viajes]) \yLuego
+	\pred{velMayoryMenordeMaximas}{velMayorMaxima:\ent,velMenorMaxima:\ent,limites: \TLista{\float},bins: \ent, xs: \TLista{Viaje}}{
+		(\forall viajes:\ent)(\exists velMax: \ent)(0 \leq viajes < \longitud{xs} \implicaLuego esVelocidadMaxima(velMax,xs[viajes]) \yLuego \\
 		(velMayorMaxima \geq velMax \wedge velMenorMaxima \leq velMax)
 	}
 \end{proc}
